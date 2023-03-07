@@ -181,4 +181,4 @@ exports['default'] = index;
 return __REQUIRE__(1654500585757);
 })()
 //miniprogram-npm-outsideDeps=[]
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=home.js.map

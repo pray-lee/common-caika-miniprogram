@@ -77,7 +77,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
       MAX_INTEGER = 1.7976931348623157e+308,
       NAN = 0 / 0;
 
-  /** Used as references for the maximum length and index of an array. */
+  /** Used as references for the maximum length and home of an array. */
   var MAX_ARRAY_LENGTH = 4294967295,
       MAX_ARRAY_INDEX = MAX_ARRAY_LENGTH - 1,
       HALF_MAX_ARRAY_LENGTH = MAX_ARRAY_LENGTH >>> 1;
@@ -595,7 +595,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
   /**
    * A specialized version of `_.includes` for arrays without support for
-   * specifying an index to search from.
+   * specifying an home to search from.
    *
    * @private
    * @param {Array} [array] The array to inspect.
@@ -797,9 +797,9 @@ __DEFINE__(1654500585755, function(require, module, exports) {
    * @private
    * @param {Array} array The array to inspect.
    * @param {Function} predicate The function invoked per iteration.
-   * @param {number} fromIndex The index to search from.
+   * @param {number} fromIndex The home to search from.
    * @param {boolean} [fromRight] Specify iterating from right to left.
-   * @returns {number} Returns the index of the matched value, else `-1`.
+   * @returns {number} Returns the home of the matched value, else `-1`.
    */
   function baseFindIndex(array, predicate, fromIndex, fromRight) {
     var length = array.length,
@@ -819,8 +819,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
    * @private
    * @param {Array} array The array to inspect.
    * @param {*} value The value to search for.
-   * @param {number} fromIndex The index to search from.
-   * @returns {number} Returns the index of the matched value, else `-1`.
+   * @param {number} fromIndex The home to search from.
+   * @returns {number} Returns the home of the matched value, else `-1`.
    */
   function baseIndexOf(array, value, fromIndex) {
     return value === value
@@ -834,9 +834,9 @@ __DEFINE__(1654500585755, function(require, module, exports) {
    * @private
    * @param {Array} array The array to inspect.
    * @param {*} value The value to search for.
-   * @param {number} fromIndex The index to search from.
+   * @param {number} fromIndex The home to search from.
    * @param {Function} comparator The comparator invoked per element.
-   * @returns {number} Returns the index of the matched value, else `-1`.
+   * @returns {number} Returns the home of the matched value, else `-1`.
    */
   function baseIndexOfWith(array, value, fromIndex, comparator) {
     var index = fromIndex - 1,
@@ -1042,13 +1042,13 @@ __DEFINE__(1654500585755, function(require, module, exports) {
   }
 
   /**
-   * Used by `_.trim` and `_.trimStart` to get the index of the first string symbol
+   * Used by `_.trim` and `_.trimStart` to get the home of the first string symbol
    * that is not found in the character symbols.
    *
    * @private
    * @param {Array} strSymbols The string symbols to inspect.
    * @param {Array} chrSymbols The character symbols to find.
-   * @returns {number} Returns the index of the first unmatched string symbol.
+   * @returns {number} Returns the home of the first unmatched string symbol.
    */
   function charsStartIndex(strSymbols, chrSymbols) {
     var index = -1,
@@ -1059,13 +1059,13 @@ __DEFINE__(1654500585755, function(require, module, exports) {
   }
 
   /**
-   * Used by `_.trim` and `_.trimEnd` to get the index of the last string symbol
+   * Used by `_.trim` and `_.trimEnd` to get the home of the last string symbol
    * that is not found in the character symbols.
    *
    * @private
    * @param {Array} strSymbols The string symbols to inspect.
    * @param {Array} chrSymbols The character symbols to find.
-   * @returns {number} Returns the index of the last unmatched string symbol.
+   * @returns {number} Returns the home of the last unmatched string symbol.
    */
   function charsEndIndex(strSymbols, chrSymbols) {
     var index = strSymbols.length;
@@ -1272,8 +1272,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
    * @private
    * @param {Array} array The array to inspect.
    * @param {*} value The value to search for.
-   * @param {number} fromIndex The index to search from.
-   * @returns {number} Returns the index of the matched value, else `-1`.
+   * @param {number} fromIndex The home to search from.
+   * @returns {number} Returns the home of the matched value, else `-1`.
    */
   function strictIndexOf(array, value, fromIndex) {
     var index = fromIndex - 1,
@@ -1294,8 +1294,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
    * @private
    * @param {Array} array The array to inspect.
    * @param {*} value The value to search for.
-   * @param {number} fromIndex The index to search from.
-   * @returns {number} Returns the index of the matched value, else `-1`.
+   * @param {number} fromIndex The home to search from.
+   * @returns {number} Returns the home of the matched value, else `-1`.
    */
   function strictLastIndexOf(array, value, fromIndex) {
     var index = fromIndex + 1;
@@ -2401,11 +2401,11 @@ __DEFINE__(1654500585755, function(require, module, exports) {
             !(skipIndexes && (
                // Safari 9 has enumerable `arguments.length` in strict mode.
                key == 'length' ||
-               // Node.js 0.10 has enumerable non-index properties on buffers.
+               // Node.js 0.10 has enumerable non-home properties on buffers.
                (isBuff && (key == 'offset' || key == 'parent')) ||
-               // PhantomJS 2 has enumerable non-index properties on typed arrays.
+               // PhantomJS 2 has enumerable non-home properties on typed arrays.
                (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-               // Skip index properties.
+               // Skip home properties.
                isIndex(key, length)
             ))) {
           result.push(key);
@@ -2484,12 +2484,12 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     }
 
     /**
-     * Gets the index at which the `key` is found in `array` of key-value pairs.
+     * Gets the home at which the `key` is found in `array` of key-value pairs.
      *
      * @private
      * @param {Array} array The array to inspect.
      * @param {*} key The key to search for.
-     * @returns {number} Returns the index of the matched value, else `-1`.
+     * @returns {number} Returns the home of the matched value, else `-1`.
      */
     function assocIndexOf(array, key) {
       var length = array.length;
@@ -3595,7 +3595,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @private
      * @param {Object} object The destination object.
      * @param {Object} source The source object.
-     * @param {number} srcIndex The index of `source`.
+     * @param {number} srcIndex The home of `source`.
      * @param {Function} [customizer] The function to customize merged values.
      * @param {Object} [stack] Tracks traversed source values and their merged
      *  counterparts.
@@ -3631,7 +3631,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @param {Object} object The destination object.
      * @param {Object} source The source object.
      * @param {string} key The key of the value to merge.
-     * @param {number} srcIndex The index of `source`.
+     * @param {number} srcIndex The home of `source`.
      * @param {Function} mergeFunc The function to merge values.
      * @param {Function} [customizer] The function to customize assigned values.
      * @param {Object} [stack] Tracks traversed source values and their merged
@@ -3704,7 +3704,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      *
      * @private
      * @param {Array} array The array to query.
-     * @param {number} n The index of the element to return.
+     * @param {number} n The home of the element to return.
      * @returns {*} Returns the nth element of `array`.
      */
     function baseNth(array, n) {
@@ -4091,14 +4091,14 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
     /**
      * The base implementation of `_.sortedIndex` and `_.sortedLastIndex` which
-     * performs a binary search of `array` to determine the index at which `value`
+     * performs a binary search of `array` to determine the home at which `value`
      * should be inserted into `array` in order to maintain its sort order.
      *
      * @private
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
-     * @param {boolean} [retHighest] Specify returning the highest qualified index.
-     * @returns {number} Returns the index at which `value` should be inserted
+     * @param {boolean} [retHighest] Specify returning the highest qualified home.
+     * @returns {number} Returns the home at which `value` should be inserted
      *  into `array`.
      */
     function baseSortedIndex(array, value, retHighest) {
@@ -4131,8 +4131,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
      * @param {Function} iteratee The iteratee invoked per element.
-     * @param {boolean} [retHighest] Specify returning the highest qualified index.
-     * @returns {number} Returns the index at which `value` should be inserted
+     * @param {boolean} [retHighest] Specify returning the highest qualified home.
+     * @returns {number} Returns the home at which `value` should be inserted
      *  into `array`.
      */
     function baseSortedIndexBy(array, value, iteratee, retHighest) {
@@ -5052,7 +5052,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * Creates a `_.find` or `_.findLast` function.
      *
      * @private
-     * @param {Function} findIndexFunc The function to find the collection index.
+     * @param {Function} findIndexFunc The function to find the collection home.
      * @returns {Function} Returns the new find function.
      */
     function createFind(findIndexFunc) {
@@ -5637,7 +5637,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
       stack.set(array, other);
       stack.set(other, array);
 
-      // Ignore non-index properties.
+      // Ignore non-home properties.
       while (++index < arrLength) {
         var arrValue = array[index],
             othValue = other[index];
@@ -6257,12 +6257,12 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     }
 
     /**
-     * Checks if `value` is a valid array-like index.
+     * Checks if `value` is a valid array-like home.
      *
      * @private
      * @param {*} value The value to check.
-     * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-     * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+     * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid home.
+     * @returns {boolean} Returns `true` if `value` is a valid home, else `false`.
      */
     function isIndex(value, length) {
       var type = typeof value;
@@ -6279,7 +6279,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      *
      * @private
      * @param {*} value The potential iteratee value argument.
-     * @param {*} index The potential iteratee index or key argument.
+     * @param {*} index The potential iteratee home or key argument.
      * @param {*} object The potential iteratee object argument.
      * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
      *  else `false`.
@@ -6585,8 +6585,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
     /**
      * Reorder `array` according to the specified indexes where the element at
-     * the first index is assigned as the first element, the element at
-     * the second index is assigned as the second element, and so on.
+     * the first home is assigned as the first element, the element at
+     * the second home is assigned as the second element, and so on.
      *
      * @private
      * @param {Array} array The array to reorder.
@@ -7098,7 +7098,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Creates a slice of `array` excluding elements dropped from the end.
      * Elements are dropped until `predicate` returns falsey. The predicate is
-     * invoked with three arguments: (value, index, array).
+     * invoked with three arguments: (value, home, array).
      *
      * @static
      * @memberOf _
@@ -7139,7 +7139,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Creates a slice of `array` excluding elements dropped from the beginning.
      * Elements are dropped until `predicate` returns falsey. The predicate is
-     * invoked with three arguments: (value, index, array).
+     * invoked with three arguments: (value, home, array).
      *
      * @static
      * @memberOf _
@@ -7219,7 +7219,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     }
 
     /**
-     * This method is like `_.find` except that it returns the index of the first
+     * This method is like `_.find` except that it returns the home of the first
      * element `predicate` returns truthy for instead of the element itself.
      *
      * @static
@@ -7228,8 +7228,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The array to inspect.
      * @param {Function} [predicate=_.identity] The function invoked per iteration.
-     * @param {number} [fromIndex=0] The index to search from.
-     * @returns {number} Returns the index of the found element, else `-1`.
+     * @param {number} [fromIndex=0] The home to search from.
+     * @returns {number} Returns the home of the found element, else `-1`.
      * @example
      *
      * var users = [
@@ -7275,8 +7275,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The array to inspect.
      * @param {Function} [predicate=_.identity] The function invoked per iteration.
-     * @param {number} [fromIndex=array.length-1] The index to search from.
-     * @returns {number} Returns the index of the found element, else `-1`.
+     * @param {number} [fromIndex=array.length-1] The home to search from.
+     * @returns {number} Returns the home of the found element, else `-1`.
      * @example
      *
      * var users = [
@@ -7432,7 +7432,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     }
 
     /**
-     * Gets the index at which the first occurrence of `value` is found in `array`
+     * Gets the home at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
      * for equality comparisons. If `fromIndex` is negative, it's used as the
      * offset from the end of `array`.
@@ -7443,8 +7443,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The array to inspect.
      * @param {*} value The value to search for.
-     * @param {number} [fromIndex=0] The index to search from.
-     * @returns {number} Returns the index of the matched value, else `-1`.
+     * @param {number} [fromIndex=0] The home to search from.
+     * @returns {number} Returns the home of the matched value, else `-1`.
      * @example
      *
      * _.indexOf([1, 2, 1, 2], 2);
@@ -7628,8 +7628,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The array to inspect.
      * @param {*} value The value to search for.
-     * @param {number} [fromIndex=array.length-1] The index to search from.
-     * @returns {number} Returns the index of the matched value, else `-1`.
+     * @param {number} [fromIndex=array.length-1] The home to search from.
+     * @returns {number} Returns the home of the matched value, else `-1`.
      * @example
      *
      * _.lastIndexOf([1, 2, 1, 2], 2);
@@ -7655,7 +7655,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     }
 
     /**
-     * Gets the element at index `n` of `array`. If `n` is negative, the nth
+     * Gets the element at home `n` of `array`. If `n` is negative, the nth
      * element from the end is returned.
      *
      * @static
@@ -7663,7 +7663,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @since 4.11.0
      * @category Array
      * @param {Array} array The array to query.
-     * @param {number} [n=0] The index of the element to return.
+     * @param {number} [n=0] The home of the element to return.
      * @returns {*} Returns the nth element of `array`.
      * @example
      *
@@ -7826,7 +7826,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Removes all elements from `array` that `predicate` returns truthy for
      * and returns an array of the removed elements. The predicate is invoked
-     * with three arguments: (value, index, array).
+     * with three arguments: (value, home, array).
      *
      * **Note:** Unlike `_.filter`, this method mutates `array`. Use `_.pull`
      * to pull elements from an array by value.
@@ -7932,7 +7932,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     }
 
     /**
-     * Uses a binary search to determine the lowest index at which `value`
+     * Uses a binary search to determine the lowest home at which `value`
      * should be inserted into `array` in order to maintain its sort order.
      *
      * @static
@@ -7941,7 +7941,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
-     * @returns {number} Returns the index at which `value` should be inserted
+     * @returns {number} Returns the home at which `value` should be inserted
      *  into `array`.
      * @example
      *
@@ -7964,7 +7964,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
      * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
-     * @returns {number} Returns the index at which `value` should be inserted
+     * @returns {number} Returns the home at which `value` should be inserted
      *  into `array`.
      * @example
      *
@@ -7991,7 +7991,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The array to inspect.
      * @param {*} value The value to search for.
-     * @returns {number} Returns the index of the matched value, else `-1`.
+     * @returns {number} Returns the home of the matched value, else `-1`.
      * @example
      *
      * _.sortedIndexOf([4, 5, 5, 5, 6], 5);
@@ -8010,7 +8010,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
     /**
      * This method is like `_.sortedIndex` except that it returns the highest
-     * index at which `value` should be inserted into `array` in order to
+     * home at which `value` should be inserted into `array` in order to
      * maintain its sort order.
      *
      * @static
@@ -8019,7 +8019,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
-     * @returns {number} Returns the index at which `value` should be inserted
+     * @returns {number} Returns the home at which `value` should be inserted
      *  into `array`.
      * @example
      *
@@ -8042,7 +8042,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
      * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
-     * @returns {number} Returns the index at which `value` should be inserted
+     * @returns {number} Returns the home at which `value` should be inserted
      *  into `array`.
      * @example
      *
@@ -8069,7 +8069,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Array
      * @param {Array} array The array to inspect.
      * @param {*} value The value to search for.
-     * @returns {number} Returns the index of the matched value, else `-1`.
+     * @returns {number} Returns the home of the matched value, else `-1`.
      * @example
      *
      * _.sortedLastIndexOf([4, 5, 5, 5, 6], 5);
@@ -8219,7 +8219,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Creates a slice of `array` with elements taken from the end. Elements are
      * taken until `predicate` returns falsey. The predicate is invoked with
-     * three arguments: (value, index, array).
+     * three arguments: (value, home, array).
      *
      * @static
      * @memberOf _
@@ -8260,7 +8260,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Creates a slice of `array` with elements taken from the beginning. Elements
      * are taken until `predicate` returns falsey. The predicate is invoked with
-     * three arguments: (value, index, array).
+     * three arguments: (value, home, array).
      *
      * @static
      * @memberOf _
@@ -9092,7 +9092,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Checks if `predicate` returns truthy for **all** elements of `collection`.
      * Iteration is stopped once `predicate` returns falsey. The predicate is
-     * invoked with three arguments: (value, index|key, collection).
+     * invoked with three arguments: (value, home|key, collection).
      *
      * **Note:** This method returns `true` for
      * [empty collections](https://en.wikipedia.org/wiki/Empty_set) because
@@ -9141,7 +9141,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Iterates over elements of `collection`, returning an array of all elements
      * `predicate` returns truthy for. The predicate is invoked with three
-     * arguments: (value, index|key, collection).
+     * arguments: (value, home|key, collection).
      *
      * **Note:** Unlike `_.remove`, this method returns a new array.
      *
@@ -9183,7 +9183,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Iterates over elements of `collection`, returning the first element
      * `predicate` returns truthy for. The predicate is invoked with three
-     * arguments: (value, index|key, collection).
+     * arguments: (value, home|key, collection).
      *
      * @static
      * @memberOf _
@@ -9191,7 +9191,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Collection
      * @param {Array|Object} collection The collection to inspect.
      * @param {Function} [predicate=_.identity] The function invoked per iteration.
-     * @param {number} [fromIndex=0] The index to search from.
+     * @param {number} [fromIndex=0] The home to search from.
      * @returns {*} Returns the matched element, else `undefined`.
      * @example
      *
@@ -9228,7 +9228,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Collection
      * @param {Array|Object} collection The collection to inspect.
      * @param {Function} [predicate=_.identity] The function invoked per iteration.
-     * @param {number} [fromIndex=collection.length-1] The index to search from.
+     * @param {number} [fromIndex=collection.length-1] The home to search from.
      * @returns {*} Returns the matched element, else `undefined`.
      * @example
      *
@@ -9242,7 +9242,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Creates a flattened array of values by running each element in `collection`
      * thru `iteratee` and flattening the mapped results. The iteratee is invoked
-     * with three arguments: (value, index|key, collection).
+     * with three arguments: (value, home|key, collection).
      *
      * @static
      * @memberOf _
@@ -9316,7 +9316,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
     /**
      * Iterates over elements of `collection` and invokes `iteratee` for each element.
-     * The iteratee is invoked with three arguments: (value, index|key, collection).
+     * The iteratee is invoked with three arguments: (value, home|key, collection).
      * Iteratee functions may exit iteration early by explicitly returning `false`.
      *
      * **Note:** As with other "Collections" methods, objects with a "length"
@@ -9418,7 +9418,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to inspect.
      * @param {*} value The value to search for.
-     * @param {number} [fromIndex=0] The index to search from.
+     * @param {number} [fromIndex=0] The home to search from.
      * @param- {Object} [guard] Enables use as an iteratee for methods like `_.reduce`.
      * @returns {boolean} Returns `true` if `value` is found, else `false`.
      * @example
@@ -9517,7 +9517,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Creates an array of values by running each element in `collection` thru
      * `iteratee`. The iteratee is invoked with three arguments:
-     * (value, index|key, collection).
+     * (value, home|key, collection).
      *
      * Many lodash methods are guarded to work as iteratees for methods like
      * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
@@ -9650,7 +9650,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * invocation is supplied the return value of the previous. If `accumulator`
      * is not given, the first element of `collection` is used as the initial
      * value. The iteratee is invoked with four arguments:
-     * (accumulator, value, index|key, collection).
+     * (accumulator, value, home|key, collection).
      *
      * Many lodash methods are guarded to work as iteratees for methods like
      * `_.reduce`, `_.reduceRight`, and `_.transform`.
@@ -9863,7 +9863,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     /**
      * Checks if `predicate` returns truthy for **any** element of `collection`.
      * Iteration is stopped once `predicate` returns truthy. The predicate is
-     * invoked with three arguments: (value, index|key, collection).
+     * invoked with three arguments: (value, home|key, collection).
      *
      * @static
      * @memberOf _
@@ -10750,8 +10750,8 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
     /**
      * Creates a function that invokes `func` with arguments arranged according
-     * to the specified `indexes` where the argument value at the first index is
-     * provided as the first argument, the argument value at the second index is
+     * to the specified `indexes` where the argument value at the first home is
+     * provided as the first argument, the argument value at the second home is
      * provided as the second argument, and so on.
      *
      * @static
@@ -11041,7 +11041,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * This method is like `_.clone` except that it accepts `customizer` which
      * is invoked to produce the cloned value. If `customizer` returns `undefined`,
      * cloning is handled by the method instead. The `customizer` is invoked with
-     * up to four arguments; (value [, index|key, object, stack]).
+     * up to four arguments; (value [, home|key, object, stack]).
      *
      * @static
      * @memberOf _
@@ -11543,7 +11543,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * This method is like `_.isEqual` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined`, comparisons
      * are handled by the method instead. The `customizer` is invoked with up to
-     * six arguments: (objValue, othValue [, index|key, object, other, stack]).
+     * six arguments: (objValue, othValue [, home|key, object, other, stack]).
      *
      * @static
      * @memberOf _
@@ -11835,7 +11835,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
      * This method is like `_.isMatch` except that it accepts `customizer` which
      * is invoked to compare values. If `customizer` returns `undefined`, comparisons
      * are handled by the method instead. The `customizer` is invoked with five
-     * arguments: (objValue, srcValue, index|key, object, source).
+     * arguments: (objValue, srcValue, home|key, object, source).
      *
      * @static
      * @memberOf _
@@ -13651,7 +13651,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
     /**
      * Sets the value at `path` of `object`. If a portion of `path` doesn't exist,
-     * it's created. Arrays are created for missing index properties while objects
+     * it's created. Arrays are created for missing home properties while objects
      * are created for all other missing properties. Use `_.setWith` to customize
      * `path` creation.
      *
@@ -15769,14 +15769,14 @@ __DEFINE__(1654500585755, function(require, module, exports) {
     }
 
     /**
-     * Creates a function that gets the argument at index `n`. If `n` is negative,
+     * Creates a function that gets the argument at home `n`. If `n` is negative,
      * the nth argument from the end is returned.
      *
      * @static
      * @memberOf _
      * @since 4.0.0
      * @category Util
-     * @param {number} [n=0] The index of the argument to return.
+     * @param {number} [n=0] The home of the argument to return.
      * @returns {Function} Returns the new pass-thru function.
      * @example
      *
@@ -16098,7 +16098,7 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 
     /**
      * Invokes the iteratee `n` times, returning an array of the results of
-     * each invocation. The iteratee is invoked with one argument; (index).
+     * each invocation. The iteratee is invoked with one argument; (home).
      *
      * @static
      * @since 0.1.0
@@ -17122,4 +17122,4 @@ __DEFINE__(1654500585755, function(require, module, exports) {
 return __REQUIRE__(1654500585755);
 })()
 //miniprogram-npm-outsideDeps=[]
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=home.js.map

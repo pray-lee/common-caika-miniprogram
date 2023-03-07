@@ -14,7 +14,7 @@ const getErrorMessage = string => {
 const submitSuccess = () => {
     console.log('submit success...')
     wx.reLaunch({
-        url: '/pages/index/index'
+        url: '/bill/pages/index/index'
     })
 }
 
@@ -79,9 +79,8 @@ const login = (app) => {
 
 const request = option => {
     const sessionId = wx.getStorageSync('sessionId')
-    const db = wx.getStorageSync('db')
     wx.request({
-        url: option.url + '&db=' + db,
+        url: option.url,
         dataType: 'json',
         data: option.data,
         header: {
@@ -101,7 +100,7 @@ const request = option => {
                     }
                 })
                 // wx.reLaunch({
-                //     url: '/pages/index/index'
+                //     url: '/pages/home/home'
                 // })
             }
         },

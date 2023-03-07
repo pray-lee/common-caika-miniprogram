@@ -5678,4 +5678,4 @@ __DEFINE__(1654500585756, function(require, module, exports) {
 return __REQUIRE__(1654500585756);
 })()
 //miniprogram-npm-outsideDeps=[]
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=home.js.map
