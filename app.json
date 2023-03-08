@@ -7,7 +7,6 @@
     {
       "root": "bill",
       "pages": [
-        "pages/index/index",
         "pages/list/index",
         "pages/addJiekuan/index",
         "pages/addBaoxiao/index",
