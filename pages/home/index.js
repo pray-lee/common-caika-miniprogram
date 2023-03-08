@@ -219,8 +219,8 @@ Page({
                     this.addLoading()
                     request({
                         hideLoading: this.hideLoading,
-                        // url: app.globalData.url + "miniProgramController.do?index&code=" + res.code,
-                        url: app.globalData.url + "loginController.do?loginWeiXin&code=" + res.code,
+                        url: app.globalData.url + "miniProgramController.do?login&code=" + res.code,
+                        // url: app.globalData.url + "loginController.do?loginWeiXin&code=" + res.code,
                         method: 'GET',
                         success: res => {
                             console.log(res, 'res')

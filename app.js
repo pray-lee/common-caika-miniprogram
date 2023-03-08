@@ -9,6 +9,7 @@ App({
     },
     onShow(options) {},
     globalData: {
-        url: 'https://www.caika.net/caika/',
+        // url: 'https://www.caika.net/caika/',
+        url: 'http://192.168.10.148:8080/jeecg/',
     }
 });
