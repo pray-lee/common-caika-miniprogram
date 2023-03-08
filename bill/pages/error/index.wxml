@@ -1,7 +1,7 @@
 <view class="a-error-view-wrapper">
             <image
                     class="a-error-view-pic"
-                    src="../../images/error-view/error.png"
+                    src="../../../images/error-view/error.png"
             />
     <view class="a-error-view-title">{{errorData.title}}</view>
     <view class="a-error-view-result-view">{{errorData.resultView}}</view>

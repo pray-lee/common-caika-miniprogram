@@ -3,7 +3,7 @@
         <view bindtap="toggleHidden">
             <text>{{selectedText ? selectedText : '全部'}}</text>
             <view class="down-arrow-wrapper" animation="{{animationInfoImg}}">
-                <image class="down-arrow" mode="scaleToFill" src="../../images/down-arrow.png"></image>
+                <image class="down-arrow" mode="scaleToFill" src="../../../images/down-arrow.png"></image>
             </view>
         </view>
         <view class="select-bill-wrapper" animation="{{animationInfoTopList}}" topHidden="{{topHidden}}">
@@ -17,7 +17,7 @@
     <view class="search-wrapper">
         <view class="search-content">
             <input type="text" placeholder="搜索事由或者单号" bindinput="bindinput" value="{{inputValue}}" value="{{inputValue}}"/>
-            <image bindtap="clearWord" src="../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
+            <image bindtap="clearWord" src="../../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
         </view>
     </view>
     <view class="see-complete-bill" bindtap="getListByListStatus">{{isComplete ? '查看已完成单据':'查看未完成单据'}}</view>

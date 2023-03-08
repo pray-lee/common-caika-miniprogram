@@ -3,7 +3,7 @@
         <view bindtap="toggleHidden">
             <text class="type-class {{typeClass}}">{{typeText}}</text>
             <view class="down-arrow-wrapper" animation="{{animationInfoImg}}">
-                <image class="down-arrow" mode="scaleToFill" src="../../images/down-arrow.png"></image>
+                <image class="down-arrow" mode="scaleToFill" src="../../../images/down-arrow.png"></image>
             </view>
         </view>
         <view class="select-bill-wrapper" animation="{{animationInfoTopList}}" topHidden="{{topHidden}}">
@@ -78,7 +78,7 @@
                             <view>{{submitData.kprq}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row">
@@ -204,7 +204,7 @@
                             <view>{{submitData.kprq}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row">
@@ -251,7 +251,7 @@
                             <view>{{submitData.invoiceDetailEntityList[0].rq}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row">
@@ -326,7 +326,7 @@
                             <view>{{submitData.kprq}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row">
@@ -394,7 +394,7 @@
                             <view>{{submitData.kprq}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row">
@@ -441,7 +441,7 @@
                             <view>{{submitData.kprq}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row">
@@ -474,7 +474,7 @@
                             <view>{{submitData.kprq}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row">

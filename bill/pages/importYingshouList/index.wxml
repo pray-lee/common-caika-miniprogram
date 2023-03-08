@@ -3,12 +3,12 @@
     <view class="search-wrapper">
         <view class="search-content">
             <input type="text" placeholder="销售类型或者备注" bindinput="bindinput" value="{{inputValue}}"/>
-            <image src="../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
+            <image src="../../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
         </view>
     </view>
     <view class="date-wrapper">
         <view class="start">
-            <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+            <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
             <picker mode="date" bindchange="startTimeChange">
                 <view class="select-date">
                     <view>{{startTime ? startTime : '起始'}}</view>
@@ -17,7 +17,7 @@
             <view class="del-date" bindtap="clearStartTime">清空</view>
         </view>
         <view class="end">
-            <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+            <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
             <picker mode="date" bindchange="endTimeChange">
                 <view class="select-date">
                     <view>{{endTime ? endTime : '结束'}}</view>

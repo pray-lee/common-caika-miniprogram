@@ -100,8 +100,8 @@
                             <view>{{submitData.businessDateTime}}</view>
                         </view>
                     </picker>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
                 <view class="form-line"/>
                 <view class="form-row invoice-wrapper">
@@ -165,7 +165,7 @@
                                 <view class="edit-wrapper">
                                     <input value="{{item.applicationAmount}}" bindinput="borrowInput" bindblur="borrowBlur"
                                            data-index="{{index}}" type="digit"/>
-                                    <image src="../../images/edit.png" mode="aspectFill" class="edit"></image>
+                                    <image src="../../../images/edit.png" mode="aspectFill" class="edit"></image>
                                 </view>
                             </view>
                         </view>
@@ -218,7 +218,7 @@
                                 <block wx:if="{{item.oaBillUserList.length > 3}}">
                                     <view class="user-box" bindtap="showSelectedUserList" data-index="{{index}}" data-allowMulti="{{item.allowMulti}}">
                                         <view class="user-avatar">
-                                            <image src="../../images/approval.png" class="view-avatar view-avatar-bg"></image>
+                                            <image src="../../../images/approval.png" class="view-avatar view-avatar-bg"></image>
                                         </view>
                                         <view class="user-word">查看更多</view>
                                     </view>
@@ -280,13 +280,13 @@
                                 <view class="view-avatar-wrapper">
                                     <view class="view-avatar-block">
                                         <view class="view-avatar">
-                                            <image wx:if="{{item.children.length && item.activityType == 'userTask'}}" src="../../images/approval.png" class="view-avatar view-avatar-bg"></image>
-                                            <image wx:if="{{item.children.length && item.activityType == 'serviceTask'}}" src="../../images/copy1.png" class="view-avatar view-avatar-bg"></image>
+                                            <image wx:if="{{item.children.length && item.activityType == 'userTask'}}" src="../../../images/approval.png" class="view-avatar view-avatar-bg"></image>
+                                            <image wx:if="{{item.children.length && item.activityType == 'serviceTask'}}" src="../../../images/copy1.png" class="view-avatar view-avatar-bg"></image>
                                             <view wx:if="{{!item.children.length}}" class="view-avatar view-avatar-bg">{{item.showAssigneeName}}</view>
                                         </view>
-                                        <image wx:if="{{item.status == 2}}" src="../../images/success.png" class="view-avatar-icon"></image>
-                                        <image wx:if="{{item.status == 1}}" src="../../images/3.png" class="view-avatar-icon"></image>
-                                        <image wx:if="{{item.status == -1 || item.status == -2}}" src="../../images/reject.png" class="view-avatar-icon"></image>
+                                        <image wx:if="{{item.status == 2}}" src="../../../images/success.png" class="view-avatar-icon"></image>
+                                        <image wx:if="{{item.status == 1}}" src="../../../images/3.png" class="view-avatar-icon"></image>
+                                        <image wx:if="{{item.status == -1 || item.status == -2}}" src="../../../images/reject.png" class="view-avatar-icon"></image>
                                     </view>
                                     <view wx:if="{{item.status == 0 || item.status == 1}}" class="view-status-dotted-line"></view>
                                     <view wx:else class="view-status-line"></view>
@@ -323,21 +323,21 @@
             <view class="block-wrapper submit-info-wrapper">
                 <view class="total">
                     <view style="display:flex;align-items: center">
-                        <image src="../../images/jiekuanTotal-icon.png" mode="scaleToFill" class="jiekuan-icon"/>
+                        <image src="../../../images/jiekuanTotal-icon.png" mode="scaleToFill" class="jiekuan-icon"/>
                         <text class="title-word">申请金额：</text>
                     </view>
                     <text class="total-word">{{submitData.formatApplicationAmount}}</text>
                 </view>
                 <view class="total">
                     <view style="display:flex;align-items: center">
-                        <image src="../../images/jiekuanTotal-icon.png" mode="scaleToFill" class="jiekuan-icon"/>
+                        <image src="../../../images/jiekuanTotal-icon.png" mode="scaleToFill" class="jiekuan-icon"/>
                         <text class="title-word">核销借款：</text>
                     </view>
                     <text class="total-word">-{{submitData.formatVerificationAmount}}</text>
                 </view>
                 <view class="total">
                     <view style="display:flex;align-items: center">
-                        <image src="../../images/jiekuanTotal-icon.png" mode="scaleToFill" class="jiekuan-icon"/>
+                        <image src="../../../images/jiekuanTotal-icon.png" mode="scaleToFill" class="jiekuan-icon"/>
                         <text class="title-word">支付总额：</text>
                     </view>
                     <text class="total-word">{{submitData.formatTotalAmount}}</text>
@@ -352,9 +352,9 @@
                             <view class="avatar-wrapper">
                                 <view class="avatar-block">
                                     <image src="{{item.avatar}}" class="avatar"></image>
-                                    <image class="status-icon" wx:if="{{item.operationResult == 2}}" src="../../images/1.png"></image>
-                                    <image class="status-icon" wx:if="{{item.operationResult == 3}}" src="../../images/2.png"></image>
-                                    <image class="status-icon" wx:if="{{item.operationResult == 1}}" src="../../images/3.png"></image>
+                                    <image class="status-icon" wx:if="{{item.operationResult == 2}}" src="../../../images/1.png"></image>
+                                    <image class="status-icon" wx:if="{{item.operationResult == 3}}" src="../../../images/2.png"></image>
+                                    <image class="status-icon" wx:if="{{item.operationResult == 1}}" src="../../../images/3.png"></image>
                                 </view>
                                 <view class="status-line"></view>
                             </view>

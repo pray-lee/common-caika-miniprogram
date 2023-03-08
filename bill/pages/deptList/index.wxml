@@ -2,7 +2,7 @@
     <view class="search-wrapper">
         <view class="search-content">
             <input type="text" placeholder="搜索" bindinput="onInput" value="{{inputValue}}" />
-            <image src="../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
+            <image src="../../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
         </view>
     </view>
     <scroll-view wx:if="{{isFocus}}" scroll-y class="scroll-info-list {{isPhoneXSeries ? 'iphoneX' : ''}}">

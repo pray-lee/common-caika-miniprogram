@@ -3,7 +3,7 @@
         <view bindtap="toggleHidden">
             <text class="type-class {{typeClass}}">{{typeText}}</text>
             <view class="down-arrow-wrapper" animation="{{animationInfoImg}}">
-                <image class="down-arrow" mode="scaleToFill" src="../../images/down-arrow.png"></image>
+                <image class="down-arrow" mode="scaleToFill" src="../../../images/down-arrow.png"></image>
             </view>
         </view>
         <view class="select-bill-wrapper" animation="{{animationInfoTopList}}" topHidden="{{topHidden}}">
@@ -20,7 +20,7 @@
     <view class="search-wrapper">
         <view class="search-content">
             <input type="text" placeholder="搜索发票号码/金额/归属公司名称" bindinput="onInput" value="{{inputValue}}" />
-            <image src="../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
+            <image src="../../../images/delete.png" mode="scaleToFill" class="input-delete-icon" bindtap="clearWord"></image>
         </view>
     </view>
     <view class="see-complete-bill" bindtap="getInvoiceListByUseStatus">{{useStatus == 1 ? '查看未使用发票':'查看已使用发票'}}</view>

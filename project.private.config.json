@@ -16,7 +16,7 @@
         },
         {
           "name": "",
-          "pathName": "invoice/pages/invoiceList/index",
+          "pathName": "/bill/pages/addJiekuan/index",
           "query": "",
           "launchMode": "default",
           "scene": null

@@ -26,7 +26,7 @@
                 <view class="form-row-label"><text class="require">*</text>申请报销金额</view>
                 <view class="mock-input" wx:if="{{baoxiaoDetail.formatApplicationAmount}}">{{baoxiaoDetail.formatApplicationAmount}}</view>
                 <view class="mock-input nodata" wx:else>无</view>
-                <image class="extra-icon" mode="scaleToFill" src="../../images/extra-icon.png"></image>
+                <image class="extra-icon" mode="scaleToFill" src="../../../images/extra-icon.png"></image>
             </view>
             <view class="form-line"/>
             <view class="form-row invoice-wrapper" wx:if="{{baoxiaoDetail.taxpayerType == 2}}">

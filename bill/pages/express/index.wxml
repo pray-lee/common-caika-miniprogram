@@ -29,7 +29,7 @@
             <view class="a-error-view-wrapper">
                 <image
                         class="a-error-view-pic"
-                        src="../../images/error-view/empty.png"
+                        src="../../../images/error-view/empty.png"
                 />
                 <view class="a-error-view-title">暂无物流信息</view>
             </view>

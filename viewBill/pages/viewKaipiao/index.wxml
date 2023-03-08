@@ -55,7 +55,7 @@
                     <view class="form-row-content">
                         <view data-name="businessDateTime">{{result.businessDateTime}}</view>
                     </view>
-                    <image src="../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
+                    <image src="../../../images/date-icon.png" mode="scaleToFill" class="date-icon"></image>
                 </view>
             </view>
             <view class="title">客户开票信息</view>
