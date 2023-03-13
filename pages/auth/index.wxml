@@ -1,0 +1,32 @@
+<view style="padding: 42rpx;">
+    <view>
+        <view class="logo">
+            <image class="logo-img" mode="scaleToFill" src="../../images/auth/logo.png"></image>
+        </view>
+        <view class="main-wrapper">
+            <image class="main-img" mode="scaleToFill" src="../../images/auth/main.png"></image>
+        </view>
+        <view class="word">
+            <view class="title">智能报销系统</view>
+            <view class="word-word">国内独家凭证级合并解决方案提供商</view>
+        </view>
+        <view class="button-area">
+            <button wx:if="{{!checked}}" bindtap="agree" class="phone-btn agree-btn"></button>
+            <button wx:else class="phone-btn" open-type="getPhoneNumber" type="primary" bindgetphonenumber="getPhoneNumber"></button>
+        </view>
+        <view class="not-use">暂不使用</view>
+        <view class="agreement">
+            <label class="checkbox-area" for="">
+                <view class="checkbox-wrapper">
+                    <checkbox bindtap="checkboxChange" class="checkbox" checked="{{checked}}"></checkbox>
+                    <view wx:if="{{checked}}" class="checked"></view>
+                </view>
+                <view class="agreement-word">
+                    <view>登录即表示已阅读并同意</view>
+                    <view>《用户需知》</view>
+                    <view>《隐私政策》</view>
+                </view>
+            </label>
+        </view>
+    </view>
+</view>

@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/home/index"
+    "pages/auth/index",
+    "pages/home/index",
+    "pages/selectAccountbook/index"
   ],
   "subpackages": [
     {
@@ -60,7 +62,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#3276c3",
+    "navigationBarBackgroundColor": "#1c56a0",
     "navigationBarTitleText": "财咖报销",
     "navigationBarTextStyle": "white"
   },

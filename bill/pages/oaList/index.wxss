@@ -52,7 +52,7 @@
     font-size: 26rpx;
     margin: 0 30rpx;
     border-radius: 6rpx;
-    border: 2rpx solid #3276c3;
+    border: 2rpx solid #1c56a0;
     margin-bottom: 20rpx;
     display:flex;
 }
@@ -66,7 +66,7 @@
     font-size: 24rpx;
 }
 .see-complete-bill .active{
-    background:#3276c3;
+    background:#1c56a0;
     color: #fff;
 }
 .scroll-view{

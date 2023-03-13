@@ -55,7 +55,7 @@
   align-items: center;
 }
 .edit{
-  background:#3276c3;
+  background:#1c56a0;
 }
 .touch-move-active .content,
 .touch-move-active .move-wrapper {

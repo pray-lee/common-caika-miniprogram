@@ -99,9 +99,6 @@ const request = option => {
                         console.log('清除sessionId成功')
                     }
                 })
-                // wx.reLaunch({
-                //     url: '/pages/home/home'
-                // })
             }
         },
         fail: res => {

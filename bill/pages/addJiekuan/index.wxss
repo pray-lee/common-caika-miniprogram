@@ -42,7 +42,7 @@
 .btn-area button{
     width: 100%;
     border:0;
-    background:#3276c3;
+    background:#1c56a0;
     border-radius: 0;
     color:#fff;
     font-size: 32rpx;
@@ -51,7 +51,7 @@
 }
 .btn-area .reset-btn{
     background:#f1f1f1;
-    color:#3276c3
+    color:#1c56a0
 }
 .radio{
     margin-right: 30rpx
@@ -67,7 +67,7 @@
 }
 .borrow-submit{
     text-align: center;
-    background:#3276c3;
+    background:#1c56a0;
     color:#fff;
     font-size: 32rpx;
     width: 100%;

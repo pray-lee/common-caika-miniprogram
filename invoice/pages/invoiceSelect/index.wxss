@@ -23,7 +23,7 @@
 .btn-area button{
     flex: 1;
     border:0;
-    background:#3276c3;
+    background:#1c56a0;
     border-radius: 0;
     color:#fff;
     font-size: 32rpx;
@@ -103,7 +103,7 @@
     background:#ff5252
 }
 .status.error.invoice-type_95::before {
-    background:#3276c3
+    background:#1c56a0
 }
 .status.error.invoice-type_92::before {
     background:deepskyblue;

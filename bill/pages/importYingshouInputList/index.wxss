@@ -45,7 +45,7 @@
 .btn-area button{
   width: 100%;
   border:0;
-  background:#3276c3;
+  background:#1c56a0;
   border-radius: 0;
   color:#fff;
   font-size: 32rpx;
@@ -231,8 +231,8 @@
     color:#ff5252
 }
 .invoice-type_95 {
-    border-color:#3276c3;
-    color:#3276c3
+    border-color:#1c56a0;
+    color:#1c56a0
 }
 .invoice-type_92 {
     border-color:deepskyblue;

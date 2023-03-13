@@ -32,7 +32,7 @@
     bottom:0;
     left:0;
     text-align: center;
-    background:#3276c3;
+    background:#1c56a0;
     color:#fff;
     font-size: 32rpx;
     width: 100%;

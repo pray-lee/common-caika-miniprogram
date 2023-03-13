@@ -43,7 +43,7 @@
 .btn-area button{
     flex: 1;
     border:0;
-    background:#3276c3;
+    background:#1c56a0;
     border-radius: 0;
     color:#fff;
     font-size: 32rpx;
@@ -85,7 +85,7 @@
     bottom:0;
     left:0;
     text-align: center;
-    background:#3276c3;
+    background:#1c56a0;
     color:#fff;
     font-size: 32rpx;
     width: 100%;
@@ -145,7 +145,7 @@ input{
 }
 .btn-area .cancel-extra{
     background:#fff;
-    color:#3276c3;
+    color:#1c56a0;
 }
 .mock-input{
     height: 44rpx;
@@ -303,8 +303,8 @@ input::-webkit-input-placeholder{
     margin-top: 5rpx;
     padding: 5rpx;
     text-align:center;
-    color:#3276c3;
-    border: 1px solid #3276c3;
+    color:#1c56a0;
+    border: 1px solid #1c56a0;
     width: 5em;
     border-radius: 8rpx;
 }

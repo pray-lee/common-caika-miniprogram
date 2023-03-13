@@ -1,4 +1,3 @@
-import {login} from "./util/getErrorMessage";
 App({
     onLaunch(options) {
         // 获取设备信息

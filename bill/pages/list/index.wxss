@@ -53,7 +53,7 @@
     padding: 20rpx;
     margin: 0 30rpx;
     border-radius: 6rpx;
-    background:#3276c3;
+    background:#1c56a0;
     color:#fff;
     margin-bottom: 20rpx;
 }

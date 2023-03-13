@@ -84,7 +84,7 @@
     padding: 20rpx;
     margin: 0 30rpx;
     border-radius: 6rpx;
-    background:#3276c3;
+    background:#1c56a0;
     color:#fff;
     margin-bottom: 20rpx;
 }
@@ -225,7 +225,7 @@
     background:#ff5252
 }
 .status.error.invoice-type_95::before {
-    background:#3276c3
+    background:#1c56a0
 }
 .status.error.invoice-type_92::before {
     background:deepskyblue;
