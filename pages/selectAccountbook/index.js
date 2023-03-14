@@ -5,7 +5,8 @@ app.globalData.loadingCount = 0
 Page({
     data: {
         tenantList: [],
-        phoneNumber: ''
+        phoneNumber: '',
+        error: false
     },
     addLoading() {
         if (app.globalData.loadingCount < 1) {
@@ -30,6 +31,10 @@ Page({
             tenantList,
             phoneNumber
         })
+        // 如果只有一个系统就直接跳到登录
+        if(tenantList.length == 1) {
+            this.handleSystemLogin(tenantList[0].tenantCode)
+        }
     },
     enter(e) {
         const tenantCode = e.currentTarget.dataset.code
@@ -49,6 +54,10 @@ Page({
                 console.log(res, 'checkuserByPhoneNUmber')
             }
         })
-
+    },
+    close() {
+        this.setData({
+            error: false
+        })
     }
 })

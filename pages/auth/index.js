@@ -50,34 +50,12 @@ Page({
                         phoneNumber: res.data.result.phoneNumber,
                         tenantList
                     })
-                    if(tenantList.length == 1) {
-                        this.handleSystemLogin(tenantList[0].tenantCode)
-                    }else if(tenantList.length < 1) {
-                        validFn('暂未绑定系统，请联系管理员')
-                    }else{
-                        wx.navigateTo({
-                            url: '/pages/selectAccountbook/index'
-                        })
-                    }
+                    wx.navigateTo({
+                        url: '/pages/selectAccountbook/index'
+                    })
                 }
             }
         })
-    },
-    handleSystemLogin(tenantCode) {
-        this.addLoading()
-        request({
-            hideLoading: this.hideLoading,
-            url: app.globalData.url + 'loginController.do?checkuserByPhoneNumber',
-            method: 'POST',
-            data: {
-                phoneNumber: this.data.phoneNumber,
-                tenantCode
-            },
-            success: res => {
-                console.log(res, 'checkuserByPhoneNUmber')
-            }
-        })
-
     },
     checkboxChange(e) {
         this.setData({

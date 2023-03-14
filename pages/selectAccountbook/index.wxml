@@ -1,15 +1,32 @@
 <view class="wrapper">
-    <view class="title">请选择系统登录</view>
-    <view class="tip">以下为您已加入的系统</view>
-    <view class="list-wrapper" wx:if="{{tenantList.length}}">
-        <view class="list" wx:for="{{tenantList}}" wx:key="index">
-            <view class="accountbook-wrapper" bindtap="enter" data-code="{{item.tenantCode}}">
-                <view class="logo-wrapper">
-                    <image class="logo" mode="scaleToFill" src="{{item.logoUrl}}"></image>
+    <block wx:if="{{tenantList.length}}">
+        <view class="title">请选择系统登录</view>
+        <view class="tip">以下为您已加入的系统</view>
+        <view class="list-wrapper" wx:if="{{tenantList.length}}">
+            <view class="list" wx:for="{{tenantList}}" wx:key="index">
+                <view class="accountbook-wrapper" bindtap="enter" data-code="{{item.tenantCode}}">
+                    <view class="logo-wrapper">
+                        <image class="logo" mode="scaleToFill" src="{{item.logoUrl}}"></image>
+                    </view>
+                    <view class="accountbookname">{{item.tenantName}}</view>
+                    <view class="enter">进入</view>
                 </view>
-                <view class="accountbookname">{{item.tenantName}}</view>
-                <view class="enter">进入</view>
             </view>
+        </view>
+    </block>
+    <block wx:else>
+        <view>
+            <image class="no-tenant" mode="scaleToFill" src="../../images/error-view/no-tenant.png"></image>
+            <view class="no-tenant-word">暂未绑定系统，请联系管理员</view>
+        </view>
+    </block>
+    <view wx:if="{{error}}" class="error-mask">
+        <view class="error-content">
+            <view class="error">
+                <view class="error-title">暂无系统操作权限</view>
+                <view class="error-word">请联系管理员申请加入系统</view>
+            </view>
+            <view class="error-close" bindtap="close"></view>
         </view>
     </view>
 </view>

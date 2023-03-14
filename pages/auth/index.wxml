@@ -8,7 +8,7 @@
         </view>
         <view class="word">
             <view class="title">智能报销系统</view>
-            <view class="word-word">国内独家凭证级合并解决方案提供商</view>
+            <view class="word-word">仅限绑定财咖云ERP用户登录</view>
         </view>
         <view class="button-area">
             <button wx:if="{{!checked}}" bindtap="agree" class="phone-btn agree-btn"></button>
