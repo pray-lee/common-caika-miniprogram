@@ -45,9 +45,9 @@ Page({
                     getErrorMessage(res.data)
                 }
                 if (res.data.success) {
-                    const tenantList = res.data.result.tenantList
+                    const tenantList = res.data.result?.tenantList
                     this.setUserInfo({
-                        phoneNumber: res.data.result.phoneNumber,
+                        phoneNumber: res.data.result?.phoneNumber,
                         tenantList
                     })
                     wx.navigateTo({

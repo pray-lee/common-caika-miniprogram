@@ -8,6 +8,7 @@ Page({
         this.addLoading()
         wx.login({
             success: res => {
+                this.hideLoading()
                 if (res && res.code) {
                     this.handleLogin(res.code)
                 }
@@ -47,9 +48,9 @@ Page({
                         wx.setStorageSync('sessionId', cookie)
                     }
                     if (res.data.success) {
-                        const tenantList = res.data.result.tenantList
+                        const tenantList = res.data.result?.tenantList
                         this.setUserInfo({
-                            phoneNumber: res.data.result.phoneNumber,
+                            phoneNumber: res.data.result?.phoneNumber,
                             tenantList
                         })
                         wx.navigateTo({
