@@ -45,9 +45,10 @@ Page({
                     getErrorMessage(res.data)
                 }
                 if (res.data.success) {
-                    const tenantList = res.data.result?.tenantList
+                    const tenantList = res.data.result?.tenantList || []
+                    const phoneNumber = res.data.result?.phoneNumber || ''
                     this.setUserInfo({
-                        phoneNumber: res.data.result?.phoneNumber,
+                        phoneNumber,
                         tenantList
                     })
                     wx.navigateTo({
@@ -61,7 +62,6 @@ Page({
         this.setData({
             checked: !this.data.checked
         })
-        console.log(this.data.checked)
     },
     agree() {
         validFn('请阅读并同意用户需知与隐私政策')

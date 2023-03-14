@@ -25,8 +25,8 @@ Page({
         }
     },
     onShow() {
-        const tenantList = wx.getStorageSync('tenantList')
-        const phoneNumber = wx.getStorageSync('phoneNumber')
+        const tenantList = wx.getStorageSync('tenantList') || []
+        const phoneNumber = wx.getStorageSync('phoneNumber') || ''
         this.setData({
             tenantList,
             phoneNumber

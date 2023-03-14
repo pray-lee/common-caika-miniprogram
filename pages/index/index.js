@@ -48,9 +48,10 @@ Page({
                         wx.setStorageSync('sessionId', cookie)
                     }
                     if (res.data.success) {
-                        const tenantList = res.data.result?.tenantList
+                        const tenantList = res.data.result?.tenantList || []
+                        const phoneNumber = res.data.result?.phoneNumber || ''
                         this.setUserInfo({
-                            phoneNumber: res.data.result?.phoneNumber,
+                            phoneNumber,
                             tenantList
                         })
                         wx.navigateTo({
