@@ -1,0 +1,70 @@
+.wrapper {
+    height: calc(100% - 80rpx);
+    padding: 7rpx;
+    overflow:hidden;
+}
+.list-wrapper{
+    height: calc(100% - 100rpx);
+    overflow:auto;
+}
+.title {
+    color:#333;
+    font-size: 28rpx;
+    font-weight:600;
+    line-height:40rpx;
+    margin-left: 18rpx;
+    margin-bottom: 4rpx;
+}
+.tip {
+    font-size: 24rpx;
+    color:#666;
+    line-height: 34rpx;
+    margin-left: 18rpx;
+    margin-bottom: 24rpx;
+}
+.accountbook-wrapper{
+    display:flex;
+    align-items: center;
+    width: 100%;
+    height: 122rpx;
+    background:#fff;
+    border-radius: 16rpx;
+    margin-bottom: 20rpx;
+}
+.logo-wrapper{
+    width: 146rpx;
+    height: 78rpx;
+    background:#1c56a0;
+    border-radius: 6rpx;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 32rpx;
+}
+.logo{
+    width: 112rpx;
+    height: 38rpx;
+}
+.accountbookname{
+    width: 12em;
+    height:40rpx;
+    color:#333;
+    font-weight: 400;
+    font-size: 28rpx;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
+    margin-left: 20rpx;
+}
+.enter{
+    width: 100rpx;
+    height: 52rpx;
+    text-align: center;
+    line-height: 52rpx;
+    background:#f0f3fc;
+    color:#1c56a0;
+    font-size: 26rpx;
+    font-weight:400;
+    border-radius: 4rpx;
+    margin-left: 30rpx;
+}
