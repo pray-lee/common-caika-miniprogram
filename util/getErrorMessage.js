@@ -14,7 +14,7 @@ const getErrorMessage = string => {
 const submitSuccess = () => {
     console.log('submit success...')
     wx.reLaunch({
-        url: '/bill/pages/index/index'
+        url: '/pages/home/index'
     })
 }
 
@@ -79,13 +79,12 @@ const login = (app) => {
 
 const request = option => {
     const sessionId = wx.getStorageSync('sessionId')
-    const db = wx.getStorageSync('tenantCode')
     wx.request({
         url: option.url,
         dataType: 'json',
         data: option.data,
         header: {
-            'cookie': ';db=' + db + sessionId,
+            'cookie': sessionId,
             'content-type': 'application/x-www-form-urlencoded',
         },
         method: option.method,
@@ -94,12 +93,12 @@ const request = option => {
             if (typeof res.data !== 'string' || res.data.indexOf('主框架') === -1) {
                 option.success(res)
             }else{
-                wx.removeStorage({
-                    key: 'sessionId',
-                    success: res => {
-                        console.log('清除sessionId成功')
-                    }
-                })
+                // wx.removeStorage({
+                //     key: 'sessionId',
+                //     success: res => {
+                //         console.log('清除sessionId成功')
+                //     }
+                // })
             }
         },
         fail: res => {

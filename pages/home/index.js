@@ -209,139 +209,47 @@ Page({
     },
     onShow() {
         this.doUpdate()
-        const sessionId = wx.getStorageSync('sessionId')
-        if (!sessionId) {
-            this.addLoading()
-            wx.login({
-                success: (res) => {
-                    console.log(res, 'res')
-                    this.hideLoading()
-                    this.addLoading()
-                    request({
-                        hideLoading: this.hideLoading,
-                        url: app.globalData.url + "miniProgramController.do?login&code=" + res.code,
-                        // url: app.globalData.url + "loginController.do?loginWeiXin&code=" + res.code,
-                        method: 'GET',
-                        success: res => {
-                            console.log(res, 'res')
-                            if (res.data.success) {
-                                if (res.data.obj) {
-                                    // session写入缓存
-                                    let cookie = res.header['Set-Cookie']
-                                    cookie = cookie.replace(/JSESSIONID/, ';JSESSIONID')
-                                    wx.setStorageSync('sessionId', cookie)
-                                    wx.setStorageSync('realName', res.data.obj.realName)
-                                    wx.setStorageSync('applicantId', res.data.obj.id)
-                                    app.globalData.realName = res.data.obj.realName
-                                    app.globalData.applicantId = res.data.obj.id
-                                    // ============= 获取待办事项================
-                                    this.getOaList()
-                                    // ============= 获取待办事项================
-                                    Promise.all([
-                                        this.getJiekuanList(),
-                                        this.getBaoxiaoList(),
-                                        this.getKaipiaoList(),
-                                        this.getFukuanList()
-                                    ]).then(res => {
-                                        // 添加单据类型标志 k j b f
-                                        const promiseList = res.map(item => ({
-                                            ...item,
-                                            list: item.list.map(list => ({
-                                                ...list,
-                                                billType: item.type,
-                                                billName: item.name,
-                                                billClass: item.type.toLowerCase()
-                                            }))
-                                        }))
-                                        // 合并四种单子
-                                        const sortList = []
-                                        promiseList.forEach(item => {
-                                            sortList.push(...item.list)
-                                        })
-                                        // 合并之后排序，并且去前三个
-                                        let sortableList = sortList.sort((a, b) => a.createDate < b.createDate ? 1 : -1).slice(0, 2)
-                                        sortableList = sortableList.map(item => {
-                                            if (item.totalAmount) {
-                                                item.formatTotalAmount = formatNumber(Number(item.totalAmount).toFixed(2))
-                                            } else {
-                                                item.formatAmount = formatNumber(Number(item.amount).toFixed(2))
-                                            }
-                                            return item
-                                        })
-                                        this.setData({
-                                            list: sortableList
-                                        })
-                                    })
-                                } else {
-                                    loginFiled(res.data.msg)
-                                }
-                            } else {
-                                loginFiled(res.data.msg)
-                            }
-                        },
-                        fail: res => {
-                            console.log(res)
-                        }
-                    })
-                },
-                fail: res => {
-                    this.hideLoading()
-                    console.log(res, '获取授权码失败')
-                    wx.showModal({
-                        content: '当前组织没有该小程序',
-                        confirmText: '好的',
-                        showCancel: false,
-                        success: res => {
-                            wx.reLaunch({
-                                url: '/bill/pages/error/index'
-                            })
-                        }
-                    })
-                }
-            })
-        } else {
-            // ============= 获取待办事项================
-            this.getOaList()
-            // ============= 获取待办事项================
-            app.globalData.realName = wx.getStorageSync('realName')
-            app.globalData.applicantId = wx.getStorageSync('applicantId')
-            Promise.all([
-                this.getJiekuanList(),
-                this.getBaoxiaoList(),
-                this.getKaipiaoList(),
-                this.getFukuanList()
-            ]).then(res => {
-                // 添加单据类型标志 k j b f
-                const promiseList = res.map(item => ({
-                    ...item,
-                    list: item.list.map(list => ({
-                        ...list,
-                        billType: item.type,
-                        billName: item.name,
-                        billClass: item.type.toLowerCase()
-                    }))
+        // ============= 获取待办事项================
+        this.getOaList()
+        // ============= 获取待办事项================
+        app.globalData.realName = wx.getStorageSync('realName')
+        app.globalData.applicantId = wx.getStorageSync('applicantId')
+        Promise.all([
+            this.getJiekuanList(),
+            this.getBaoxiaoList(),
+            this.getKaipiaoList(),
+            this.getFukuanList()
+        ]).then(res => {
+            // 添加单据类型标志 k j b f
+            const promiseList = res.map(item => ({
+                ...item,
+                list: item.list.map(list => ({
+                    ...list,
+                    billType: item.type,
+                    billName: item.name,
+                    billClass: item.type.toLowerCase()
                 }))
-                // 合并四种单子
-                const sortList = []
-                promiseList.forEach(item => {
-                    sortList.push(...item.list)
-                })
-                // 合并之后排序，并且去前三个
-                let sortableList = sortList.sort((a, b) => a.createDate < b.createDate ? 1 : -1).slice(0, 2)
-                sortableList = sortableList.map(item => {
-                    if (item.totalAmount) {
-                        item.formatTotalAmount = formatNumber(Number(item.totalAmount).toFixed(2))
-                    } else {
-                        item.formatAmount = formatNumber(Number(item.amount).toFixed(2))
-                    }
-                    return item
-                })
-                this.setData({
-                    list: sortableList
-                })
-                console.log(this.data.list, 'list')
+            }))
+            // 合并四种单子
+            const sortList = []
+            promiseList.forEach(item => {
+                sortList.push(...item.list)
             })
-        }
+            // 合并之后排序，并且去前三个
+            let sortableList = sortList.sort((a, b) => a.createDate < b.createDate ? 1 : -1).slice(0, 2)
+            sortableList = sortableList.map(item => {
+                if (item.totalAmount) {
+                    item.formatTotalAmount = formatNumber(Number(item.totalAmount).toFixed(2))
+                } else {
+                    item.formatAmount = formatNumber(Number(item.amount).toFixed(2))
+                }
+                return item
+            })
+            this.setData({
+                list: sortableList
+            })
+            console.log(this.data.list, 'list')
+        })
         // 页面显示
         var animation = wx.createAnimation({
             duration: 250,
@@ -399,30 +307,30 @@ Page({
     },
     goList(e) {
         wx.navigateTo({
-            url: '../list/index?type=' + e.currentTarget.dataset.type
+            url: '/bill/pages/list/index?type=' + e.currentTarget.dataset.type
         })
     },
     onShowAddJiekuan(e) {
         wx.navigateTo({
-            url: '../addJiekuan/index?type=add'
+            url: '/bill/pages/addJiekuan/index?type=add'
         })
         this.onAddHide()
     },
     onShowAddKaipiao(e) {
         wx.navigateTo({
-            url: '../addKaipiao/index?type=add'
+            url: '/bill/pages/addKaipiao/index?type=add'
         })
         this.onAddHide()
     },
     onShowAddFukuan(e) {
         wx.navigateTo({
-            url: '../addFukuan/index?type=add'
+            url: '/bill/pages/addFukuan/index?type=add'
         })
         this.onAddHide()
     },
     onShowAddBaoxiao(e) {
         wx.navigateTo({
-            url: '../addBaoxiao/index?type=add'
+            url: '/bill/pages/addBaoxiao/index?type=add'
         })
         this.onAddHide()
     },

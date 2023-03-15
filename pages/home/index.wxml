@@ -26,7 +26,7 @@
                 <view class="a-error-view-wrapper error-index">
                     <image
                             class="a-error-view-pic"
-                            src="../../../images/error-view/empty.png"
+                            src="../../images/error-view/empty.png"
                     />
                     <view class="a-error-view-title">暂无未完成单据</view>
                 </view>

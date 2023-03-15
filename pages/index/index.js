@@ -1,4 +1,4 @@
-import {getErrorMessage, request} from "../../util/getErrorMessage";
+import {getErrorMessage, request, validFn} from "../../util/getErrorMessage";
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -12,6 +12,10 @@ Page({
                 if (res && res.code) {
                     this.handleLogin(res.code)
                 }
+            },
+            fail: error => {
+                console.log(error, 'error');
+                validFn(error.errMsg)
             }
         })
     },
@@ -38,15 +42,15 @@ Page({
             url: app.globalData.url + 'miniProgramController.do?login&code=' + code,
             method: 'GET',
             success: res => {
-                const sessionId = wx.getStorageSync('sessionId')
+                // const sessionId = wx.getStorageSync('sessionId')
                 if (res.data && typeof res.data == 'string') {
                     getErrorMessage(res.data)
                 } else {
-                    if(!sessionId) {
-                        let cookie = res.header['Set-Cookie']
-                        cookie = cookie.replace(/JSESSIONID/, ';JSESSIONID')
-                        wx.setStorageSync('sessionId', cookie)
-                    }
+                    // if(!res.header['Set-Cookie']) {
+                    //     let cookie = res.header['Set-Cookie']
+                    //     cookie = cookie.replace(/JSESSIONID/, ';JSESSIONID')
+                    //     wx.setStorageSync('sessionId', cookie)
+                    // }
                     if (res.data.success) {
                         const tenantList = res.data.result?.tenantList || []
                         const phoneNumber = res.data.result?.phoneNumber || ''

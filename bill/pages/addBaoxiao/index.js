@@ -1257,7 +1257,7 @@ Page({
                             showCancel: false,
                             success: res => {
                                 wx.reLaunch({
-                                    url: '/bill/pages/index/index'
+                                    url: '/pages/home/index'
                                 })
                             }
                         })
@@ -1308,7 +1308,7 @@ Page({
                         showCancel: false,
                         success: res => {
                             wx.reLaunch({
-                                url: '/bill/pages/index/index'
+                                url: '/pages/home/index'
                             })
                         }
                     })

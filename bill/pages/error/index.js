@@ -10,7 +10,7 @@ Page({
     },
     handleBack() {
         wx.reLaunch({
-            url: '/bill/pages/index/index'
+            url: '/pages/home/index'
         })
     },
     handleErrorButtbindtap(e) {
