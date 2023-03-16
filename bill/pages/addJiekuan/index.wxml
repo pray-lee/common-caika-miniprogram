@@ -181,7 +181,6 @@
                     <view class="file-item" wx:if="{{submitData.billFilesObj.length}}" wx:for="{{submitData.billFilesObj}}" wx:key="index">
                         <view class="form-row">
                             <view class="delete-file" bindtap="deleteFile" data-file="{{item.name}}"></view>
-
                             <view class="form-row-content ellipsis" bindtap="previewFile" data-url="{{item.uri}}">{{item.name}}</view>
                             <view class="form-row-content img-wrapper" bindtap="previewFile" data-url="{{item.uri}}">
                                 <image src="{{item.uri}}" class="img"></image>

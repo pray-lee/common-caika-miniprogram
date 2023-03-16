@@ -486,32 +486,32 @@ Page({
             case 'J':
                 //借款
                 if (status == 10 || status == 25) {
-                    this.setPage(`../addJiekuan/index?type=edit&id=${id}`)
+                    this.setPage(`/bill/pages/addJiekuan/index?type=edit&id=${id}`)
                 } else {
-                    this.setPage(`../../viewBill/viewJiekuan/index?id=${id}`)
+                    this.setPage(`/viewBill/pages/viewJiekuan/index?id=${id}`)
                 }
                 break;
             case 'B':
                 // 报销单
                 if (status == 10 || status == 25) {
-                    this.setPage(`../addBaoxiao/index?type=edit&id=${id}`)
+                    this.setPage(`/bill/pages/addBaoxiao/index?type=edit&id=${id}`)
                 } else {
-                    this.setPage(`../../viewBill/viewBaoxiao/index?id=${id}`)
+                    this.setPage(`/viewBill/pages/viewBaoxiao/index?id=${id}`)
                 }
                 break;
             case 'K':
                 if (status == 10 || status == 25) {
-                    this.setPage(`../addKaipiao/index?type=edit&id=${id}`)
+                    this.setPage(`/bill/pages/addKaipiao/index?type=edit&id=${id}`)
                 } else {
-                    this.setPage(`../../viewBill/viewKaipiao/index?id=${id}`)
+                    this.setPage(`/viewBill/pages/viewKaipiao/index?id=${id}`)
                 }
                 // 开票单
                 break;
             case 'F':
                 if (status == 10 || status == 25) {
-                    this.setPage(`../addFukuan/index?type=edit&id=${id}`)
+                    this.setPage(`/bill/pages/addFukuan/index?type=edit&id=${id}`)
                 } else {
-                    this.setPage(`../../viewBill/viewFukuan/index?id=${id}`)
+                    this.setPage(`/viewBill/pages/viewFukuan/index?id=${id}`)
                 }
                 // 付款单
                 break;

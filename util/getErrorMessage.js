@@ -44,39 +44,6 @@ const validFn = message => {
     })
 }
 
-const login = (app) => {
-    wx.getAuthCode({
-        success: (res) => {
-            wx.httpRequest({
-                url: app.globalData.url + "loginController.do?loginDingTalk&code=" + res.authCode + '&corpId=' + app.globalData.corpId,
-                method: "GET",
-                dataType: "json",
-                success: res => {
-                    if (res.data.success) {
-
-                    } else {
-                        console.log(res.data.msg)
-                        loginFiled(res.data.msg)
-                    }
-                },
-                fail: res => {
-                    console.log(res, 'fail')
-                    if (res.error == 19) {
-                        loginFiled()
-                    }
-                    if (res.error == 12) {
-                        loginFiled('网络异常')
-                    }
-                },
-            })
-        },
-        fail: res => {
-            console.log(res, 'outer failed')
-            loginFiled('当前组织没有该小程序')
-        }
-    })
-}
-
 const request = option => {
     const sessionId = wx.getStorageSync('sessionId')
     wx.request({
@@ -123,6 +90,5 @@ export {
     loginFiled,
     formatNumber,
     validFn,
-    login,
     request
 }

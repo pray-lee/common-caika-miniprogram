@@ -823,7 +823,7 @@ Page({
         }
         return []
     },
-    setRenderProgress(nodeList) {
+    setRenderProgress(nodeList=[]) {
         const newNodeList = nodeList.map(node => {
             return {
                 ...node,
@@ -1017,7 +1017,7 @@ Page({
         this.addLoading()
         request({
             hideLoading: this.hideLoading,
-            url: app.globalData.url + 'accountbookController.do?getAccountbooksJsonByUserId&corpId=' + app.globalData.corpId,
+            url: app.globalData.url + 'accountbookController.do?getAccountbooksJsonByUserId',
             method: 'GET',
             success: res => {
                 console.log(res.data, 'accountbookList')

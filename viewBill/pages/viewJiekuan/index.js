@@ -69,55 +69,7 @@ Page({
         })
     },
     getDetail(query) {
-       if(app.globalData.isWxWork) {
-           const sessionId = wx.getStorageSync('sessionId')
-           if(!sessionId) {
-               this.addLoading()
-               wx.qy.login({
-                   success: res => {
-                       this.hideLoading()
-                       this.addLoading()
-                       request({
-                           hideLoading: this.hideLoading,
-                           url: app.globalData.url + "loginController.do?loginWeiXin&tenantCode=" + app.globalData.tenantCode + "&code=" + res.code + '&corpId=' + app.globalData.corpId,
-                           method: 'GET',
-                           success: res => {
-                               if (res.data.success) {
-                                   if(res.data.obj) {
-                                       wx.setStorageSync('sessionId', res.header['Set-Cookie'])
-                                       wx.setStorageSync('realName', res.data.obj.realName)
-                                       wx.setStorageSync('applicantId', res.data.obj.id)
-                                       app.globalData.realName = res.data.obj.realName
-                                       this.getDetailById(query)
-                                   }else{
-                                       loginFiled(res.data.msg)
-                                   }
-                               } else {
-                                   loginFiled(res.data.msg)
-                               }
-                           },
-                           fail: res => {
-                           }
-                       })
-                   },
-                   fail: res => {
-                       this.hideLoading()
-                       wx.showModal({
-                           content: '当前组织没有该小程序',
-                           confirmText: '好的',
-                           showCancel: false,
-                           success: res => {
-                               wx.reLaunch({
-                                   url: '/bill/pages/error/index'
-                               })
-                           }
-                       })
-                   }
-               })
-           }else{
-               this.getDetailById(query)
-           }
-       }
+       this.getDetailById(query)
     },
     onLoad(query) {
         // 增加申请人

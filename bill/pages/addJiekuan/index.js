@@ -1009,7 +1009,7 @@ Page({
         }
         return []
     },
-    setRenderProgress(nodeList) {
+    setRenderProgress(nodeList=[]) {
         const newNodeList = nodeList.map(node => {
             return {
                 ...node,
@@ -1172,7 +1172,7 @@ Page({
         this.addLoading()
         request({
             hideLoading: this.hideLoading,
-            url: app.globalData.url + 'accountbookController.do?getAccountbooksJsonByUserId&corpId=' + app.globalData.corpId,
+            url: app.globalData.url + 'accountbookController.do?getAccountbooksJsonByUserId',
             method: 'GET',
             success: res => {
                 console.log(res)
@@ -1781,7 +1781,7 @@ Page({
                 subjectName: data.subject ? data.subject.fullSubjectName : '',
                 businessDateTime: data.businessDateTime.split(' ')[0],
                 amount: data.amount.toFixed(2),
-                formatAmount: formatNumber(data.amount),
+                formatAmount: formatNumber(Number(data.amount).toFixed(2)),
                 // 外币
                 originAmount: data.originAmount,
                 originFormatAmount: formatNumber(Number(data.originAmount).toFixed(2)),
