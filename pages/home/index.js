@@ -207,13 +207,31 @@ Page({
             })
         })
     },
+    getUserInfo() {
+        this.addLoading()
+        request({
+            hideLoading: this.hideLoading,
+            url: app.globalData.url + 'miniProgramController.do?getUserInfo',
+            method: 'GET',
+            data:{},
+            success: res => {
+                if(res.data.success) {
+                    const {realName, id} = res.data.obj
+                    app.globalData.realName = realName
+                    app.globalData.applicantId = id
+                }else{
+                    validFn(res.data.msg)
+                }
+                console.log('用户信息', res)
+            }
+        })
+    },
     onShow() {
+        this.getUserInfo()
         this.doUpdate()
         // ============= 获取待办事项================
         this.getOaList()
         // ============= 获取待办事项================
-        app.globalData.realName = wx.getStorageSync('realName')
-        app.globalData.applicantId = wx.getStorageSync('applicantId')
         Promise.all([
             this.getJiekuanList(),
             this.getBaoxiaoList(),
