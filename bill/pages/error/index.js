@@ -5,7 +5,7 @@ Page({
             title: '什么都没有了',
             button: '返回',
             onButtbindtap: 'handleBack',
-            href: '/bill/pages/home/home',
+            href: '/pages/home/index',
         },
     },
     handleBack() {

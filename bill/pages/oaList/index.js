@@ -19,9 +19,9 @@ Page({
             '3': 'F'
         },
         billUrl: {
-            'J': '/viewBill/pages/viewJiekuan/home',
-            'B': '/viewBill/pages/viewBaoxiao/home',
-            'F': '/viewBill/pages/viewFukuan/home',
+            'J': '/viewBill/pages/viewJiekuan/index',
+            'B': '/viewBill/pages/viewBaoxiao/index',
+            'F': '/viewBill/pages/viewFukuan/index',
         }
     },
     onLoad() {

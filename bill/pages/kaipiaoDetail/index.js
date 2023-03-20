@@ -379,7 +379,7 @@ Page({
     goSubjectPage() {
         if(!this.data.kaipiaoDetail.billId) {
             wx.navigateTo({
-                url: '/pages/subjectPage/index'
+                url: '/bill/pages/subjectPage/index'
             })
         }else{
             wx.showModal({
@@ -397,7 +397,7 @@ Page({
                 data: this.data.kaipiaoDetail.allAuxptyList[auxptyId],
                 success: res => {
                     wx.navigateTo({
-                        url: '/pages/auxptyPage/index'
+                        url: '/bill/pages/auxptyPage/index'
                     })
                 }
             })

@@ -239,7 +239,7 @@ Page({
             data: subDepartList,
             success: res => {
                 wx.navigateTo({
-                    url: '/pages/approvalUserList/index'
+                    url: '/bill/pages/approvalUserList/index'
                 })
             }
         })

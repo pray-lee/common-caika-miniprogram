@@ -30,7 +30,7 @@ Page({
     onShareAppMessage() {
         return {
             title: '这是刘希的小程序',
-            path: '/bill/pages/home/home'
+            path: '/pages/home/index'
         }
     },
     onShareTimeline() {

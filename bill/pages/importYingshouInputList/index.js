@@ -300,7 +300,7 @@ Page({
                             data: res.data.filter(item => item.id === this.data.accountbookId),
                             success: res => {
                                 wx.navigateTo({
-                                    url: "/pages/invoiceAccountbookList/index"
+                                    url: "/invoice/pages/invoiceAccountbookList/index"
                                 })
                             }
                         })
@@ -345,13 +345,13 @@ Page({
             this.data.accountbookId
         )
         wx.navigateTo({
-            url: '/pages/invoiceInput/index'
+            url: '/invoice/pages/invoiceInput/index'
         })
     },
     invoiceSelect() {
         wx.setStorageSync('invoiceImportListTag',1)
         wx.navigateTo({
-            url: '/pages/invoiceListSelect/index?accountbookId=' + this.data.accountbookId
+            url: '/invoice/pages/invoiceListSelect/index?accountbookId=' + this.data.accountbookId
         })
     },
     /**
@@ -437,7 +437,7 @@ Page({
                                         this.data.accountbookId
                                     )
                                     wx.navigateTo({
-                                        url: '/pages/invoiceSelect/index?invoiceAccountbookId=' + accountbookId
+                                        url: '/invoice/pages/invoiceSelect/index?invoiceAccountbookId=' + accountbookId
                                     })
                                 }
                             })
@@ -685,7 +685,7 @@ Page({
             data: this.data.importList[this.data.invoiceIndex].ocrList[index],
             success: res => {
                 wx.navigateTo({
-                    url: '/pages/invoiceInput/index'
+                    url: '/invoice/pages/invoiceInput/index'
                 })
             }
         })

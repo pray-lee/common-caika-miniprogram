@@ -96,7 +96,7 @@ Page({
             data: this.data.ocrList[index],
             success: res => {
                 wx.navigateTo({
-                    url: '/pages/invoiceInput/index'
+                    url: '/invoice/pages/invoiceInput/index'
                 })
             }
         })

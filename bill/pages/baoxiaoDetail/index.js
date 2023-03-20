@@ -507,7 +507,7 @@ Page({
     },
     goSubjectPage() {
         wx.navigateTo({
-            url: '/pages/subjectPage/index'
+            url: '/bill/pages/subjectPage/index'
         })
     },
     goAuxptyPage(e) {
@@ -517,7 +517,7 @@ Page({
             data: this.data.baoxiaoDetail.allAuxptyList[auxptyId],
             success: res => {
                 wx.navigateTo({
-                    url: '/pages/auxptyPage/index'
+                    url: '/bill/pages/auxptyPage/index'
                 })
             }
         })
@@ -564,7 +564,7 @@ Page({
                             data: res.data.filter(item => item.id === this.data.baoxiaoDetail.accountbookId),
                             success: res => {
                                 wx.navigateTo({
-                                    url: "/pages/invoiceAccountbookList/index"
+                                    url: "/invoice/pages/invoiceAccountbookList/index"
                                 })
                             }
                         })
@@ -607,12 +607,12 @@ Page({
             this.data.baoxiaoDetail.accountbookId
         )
         wx.navigateTo({
-            url: '/pages/invoiceInput/index'
+            url: '/invoice/pages/invoiceInput/index'
         })
     },
     invoiceSelect() {
         wx.navigateTo({
-            url: '/pages/invoiceListSelect/index?accountbookId=' + this.data.baoxiaoDetail.accountbookId
+            url: '/invoice/pages/invoiceListSelect/index?accountbookId=' + this.data.baoxiaoDetail.accountbookId
         })
     },
     /**
@@ -698,7 +698,7 @@ Page({
                                         this.data.baoxiaoDetail.accountbookId
                                     )
                                     wx.navigateTo({
-                                        url: '/pages/invoiceSelect/index?invoiceAccountbookId=' + accountbookId
+                                        url: '/invoice/pages/invoiceSelect/index?invoiceAccountbookId=' + accountbookId
                                     })
                                 }
                             })
@@ -1015,7 +1015,7 @@ Page({
             data: this.data.ocrList[index],
             success: res => {
                 wx.navigateTo({
-                    url: '/pages/invoiceInput/index'
+                    url: '/invoice/pages/invoiceInput/index'
                 })
             }
         })

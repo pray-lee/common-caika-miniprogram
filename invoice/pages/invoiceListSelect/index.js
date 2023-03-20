@@ -217,7 +217,7 @@ Page({
             data: invoiceDetail,
             success: res => {
                 wx.navigateTo({
-                    url: '/pages/invoiceInput/index'
+                    url: '/invoice/pages/invoiceInput/index'
                 })
             }
         })

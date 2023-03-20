@@ -10,6 +10,7 @@ App({
     globalData: {
         // url: 'https://www.caika.net/caika/',
         // url: 'http://192.168.10.148:8081/saas/',
+        // url: 'http://192.168.10.148:8080/jeecg/',
         url: 'https://www.caika.net/ucommune-test/',
     }
 });
