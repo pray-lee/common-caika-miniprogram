@@ -1,5 +1,5 @@
 import {cloneDeep as clone} from "lodash";
-import {formatNumber, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber, request} from "../../../util/getErrorMessage";
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -9,21 +9,6 @@ Page({
         realName: '',
         result: null,
         isPhoneXSeries: false,
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
     },
     previewFile(e) {
         var url = e.currentTarget.dataset.url
@@ -39,10 +24,9 @@ Page({
         this.setData({
             isPhoneXSeries: app.globalData.isPhoneXSeries
         })
-        this.addLoading()
+        addLoading()
         const id = query.id
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoicebillController.do?getDetail&id=' + id,
             method: 'GET',
             success: res => {
@@ -78,9 +62,8 @@ Page({
         })
     },
     rollBack() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading(),
             url: app.globalData.url + 'invoicebillController.do?doBatchTemporaryStorage&ids=' + this.data.result.id,
             method: 'GET',
             success: res => {

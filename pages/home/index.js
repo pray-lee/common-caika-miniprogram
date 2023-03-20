@@ -1,4 +1,4 @@
-import {loginFiled, formatNumber, request} from "../../util/getErrorMessage";
+import {addLoading, hideLoading, loginFiled, formatNumber, request, validFn} from "../../util/getErrorMessage";
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -51,9 +51,8 @@ Page({
     },
     getOaList() {
         const url = `${app.globalData.url}oaTaskController.do?todoDatagrid&field=id,applicationAmount,accountbookId,billType,billCode,taskName,billId,createDate,processInstanceId,remark,status`
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url,
             method: 'POST',
             success: res => {
@@ -90,22 +89,6 @@ Page({
             maskHidden: true
         })
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                content: '加载中...'
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
-        }
-    },
     doUpdate() {
         const updateManager = wx.getUpdateManager()
 
@@ -141,9 +124,8 @@ Page({
     },
     getJiekuanList() {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'borrowBillController.do?datagrid&reverseVerifyStatus=0&page=1&rows=3&sort=updateDate&order=desc&status_end=79&field=id,,accountbookId,billCode,accountbook.accountbookName,submitterDepartmentId,departDetail.depart.departName,applicantType,applicantId,applicantName,incomeBankName,incomeBankName_begin,incomeBankName_end,incomeBankAccount,incomeBankAccount_begin,incomeBankAccount_end,subject.fullSubjectName,auxpropertyNames,capitalTypeDetailEntity.detailName,amount,unpaidAmount,paidAmount,unverifyAmount,submitter.id,submitter.realName,invoice,contractNumber,submitDate,submitDate_begin,submitDate_end,status,businessDateTime,businessDateTime_begin,businessDateTime_end,remark,createDate,createDate_begin,createDate_end,updateDate,updateDate_begin,updateDate_end,accountbook.oaModule,',
                 method: 'GET',
                 success: res => {
@@ -158,9 +140,8 @@ Page({
     },
     getBaoxiaoList() {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'reimbursementBillController.do?datagrid&reverseVerifyStatus=0&page=1&rows=3&sort=createDate&order=desc&status_end=79&field=id,billCode,accountbookId,accountbook.accountbookName,submitterDepartmentId,departDetail.depart.departName,applicantType,applicantId,applicantName,incomeBankName,incomeBankAccount,invoice,applicationAmount,verificationAmount,totalAmount,unpaidAmount,paidAmount,unverifyAmount,businessDateTime,createDate,updateDate,remark,submitterId,submitter.realName,childrenCount,accountbook.oaModule,status',
                 method: 'GET',
                 success: res => {
@@ -175,9 +156,8 @@ Page({
     },
     getKaipiaoList() {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'invoicebillController.do?datagrid&page=1&rows=3&sort=createDate&order=desc&status_end=29&field=id,invoicebillCode,accountbookId,accountbookEntity.accountbookName,submitterId,user.realName,submitterDepartmentId,departDetailEntity.depart.departName,customerDetailId,customerDetailEntity.customer.customerName,invoiceType,createDate,taxRate,amount,unverifyAmount,unverifyReceivableAmount,submitDateTime,contacts,telephone,address,status,businessDateTime,remark,billCode',
                 method: 'GET',
                 success: res => {
@@ -192,9 +172,8 @@ Page({
     },
     getFukuanList() {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'paymentBillController.do?datagrid&reverseVerifyStatus=0&page=1&rows=3&sort=createDate&order=desc&status_end=79&field=id,billCode,accountbookId,accountbook.accountbookName,submitterDepartmentId,departDetail.depart.departName,supplierId,supplierDetail.supplier.supplierName,applicantType,applicantId,applicantName,submitterId,submitter.realName,incomeBankName,incomeBankAccount,invoice,applicationAmount,verificationAmount,totalAmount,unpaidAmount,paidAmount,unverifyAmount,businessDateTime,createDate,updateDate,remark,childrenCount,status,accountbook.oaModule,oaModule,',
                 method: 'GET',
                 success: res => {
@@ -208,19 +187,18 @@ Page({
         })
     },
     getUserInfo() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'miniProgramController.do?getUserInfo',
             method: 'GET',
-            data:{},
+            // data:{},
             success: res => {
                 if(res.data.success) {
                     const {realName, id} = res.data.obj
                     app.globalData.realName = realName
                     app.globalData.applicantId = id
                 }else{
-                    validFn(res.data.msg)
+                    validFn(res.data.msg || '获取ERP用户信息失败')
                 }
                 console.log('用户信息', res)
             }

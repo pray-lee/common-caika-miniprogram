@@ -1,5 +1,6 @@
+import {addLoading, hideLoading, request} from '../../../util/getErrorMessage'
 const app = getApp()
-import {request} from '../../../util/getErrorMessage'
+app.globalData.loadingCount = 0
 Page({
     data: {
         expressInfo: {},
@@ -24,23 +25,6 @@ Page({
             }
         })
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
-        }
-    },
     save() {
         const customerDetailId = wx.getStorageSync('customerDetailId')
         this.setData({
@@ -49,12 +33,11 @@ Page({
                 customerDetailId
             }
         })
-        this.addLoading()
+        addLoading()
         const url = app.globalData.url + (this.data.type === 'edit' ?
             'customerSpecialDeliveryController.do?doUpdate' :
             'customerSpecialDeliveryController.do?doAdd' )
         request({
-            hideLoading: this.hideLoading,
             url: url,
             method: 'POST',
             data: this.data.expressInfo,

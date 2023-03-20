@@ -1,5 +1,5 @@
 import {cloneDeep as clone} from "lodash";
-import {formatNumber, request} from '../../../util/getErrorMessage'
+import {addLoading, hideLoading, formatNumber, request} from '../../../util/getErrorMessage'
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -146,9 +146,8 @@ Page({
     },
     getInvoiceListByType(type, useStatus) {
         console.log(this.data.accountbookId, 'accountbookId')
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?getInvoiceInfoByUserId',
             data: {
                 invoiceType: type,
@@ -184,23 +183,6 @@ Page({
                 useStatus: 1
             })
             this.getInvoiceListByType(this.data.type, 1)
-        }
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
         }
     },
     onInput(e) {

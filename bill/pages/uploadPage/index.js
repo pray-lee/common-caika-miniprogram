@@ -19,7 +19,7 @@ Page({
                 }
             },
             fail: res => {
-                this.hideLoading()
+                hideLoading()
             }
 
         })

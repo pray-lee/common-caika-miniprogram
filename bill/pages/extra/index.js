@@ -1,9 +1,10 @@
 import moment from "moment";
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-import {formatNumber, validFn} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber, validFn} from "../../../util/getErrorMessage";
 
 const app = getApp()
+app.globalData.loadingCount = 0
 Page({
     data: {
         isPhoneXSeries: false,
@@ -252,32 +253,17 @@ Page({
                return
             }
         }
-        this.addLoading()
+        addLoading()
         wx.setStorage({
             key: 'baoxiaoDetail',
             data: tempData,
             success: res => {
-                this.hideLoading()
+                hideLoading()
                 wx.navigateBack({
                     delta: 1
                 })
             }
         })
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
     },
     valid(obj, index) {
         const array = obj.extraMessage[index]

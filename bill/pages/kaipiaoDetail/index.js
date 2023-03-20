@@ -1,8 +1,9 @@
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from "lodash";
-import {formatNumber, validFn, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber, validFn, request} from "../../../util/getErrorMessage";
 
 const app = getApp()
+app.globalData.loadingCount = 0
 Page({
     data: {
         isPhoneXSeries: false,
@@ -138,9 +139,8 @@ Page({
     },
     // 获取科目对应的辅助核算 (每一个都是单独调用)
     getSubjectAuxptyList(subjectId, accountbookId, flag) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'subjectStartDetailController.do?getInfo&subjectId=' + subjectId + '&accountbookId=' + accountbookId,
             method: 'GET',
             success: res => {
@@ -174,7 +174,7 @@ Page({
     },
     // 请求辅助核算列表
     getAuxptyList(accountbookId, auxptyid, flag) {
-        this.addLoading()
+        addLoading()
         let url = this.getAuxptyUrl(accountbookId, auxptyid)
         if(auxptyid == 2 && this.data.kaipiaoDetail.applicantType == 10) {
             url = url + '&id=' + this.data.kaipiaoDetail.applicantId
@@ -186,7 +186,6 @@ Page({
             url = url + '&id=' + this.data.kaipiaoDetail.applicantId
         }
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + url,
             method: 'GET',
             success: res => {
@@ -322,21 +321,6 @@ Page({
         }
         return name
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     submitKaipiaoDetail() {
         if(Number(this.data.kaipiaoDetail.applicationAmount) > Number(this.data.kaipiaoDetail.unverifyAmount)) {
             wx.showModal({
@@ -357,12 +341,12 @@ Page({
                 item.billDetailTrueApEntityListObj = clone(item.billDetailApEntityListObj)
                 item.formatApplicationAmount = formatNumber(Number(item.applicationAmount).toFixed(2))
             })
-            this.addLoading()
+            addLoading()
             wx.setStorage({
                 key: 'newKaipiaoDetailArr',
                 data: tempData,
                 success: res => {
-                    this.hideLoading()
+                    hideLoading()
                     wx.navigateBack({
                         delta: 1
                     })

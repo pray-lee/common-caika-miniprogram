@@ -1,8 +1,9 @@
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-import {formatNumber, validFn, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber, validFn, request} from "../../../util/getErrorMessage";
 
 const app = getApp()
+app.globalData.loadingCount = 0
 Page({
     data: {
         isPhoneXSeries: false,
@@ -115,9 +116,8 @@ Page({
         }
     },
     onAddShow() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceConfigController.do?getInvoiceConfigByAccountbook&accountbookId=' + this.data.baoxiaoDetail.accountbookId,
             method: 'GET',
             success: res => {
@@ -245,9 +245,8 @@ Page({
     },
     // 获取科目对应的辅助核算 (每一个都是单独调用)
     getSubjectAuxptyList(subjectId, accountbookId, flag) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'subjectStartDetailController.do?getInfo&subjectId=' + subjectId + '&accountbookId=' + accountbookId,
             method: 'GET',
             success: res => {
@@ -283,7 +282,7 @@ Page({
     getAuxptyList(accountbookId, auxptyid, flag) {
         console.log(auxptyid, 'auxptyid')
         console.log(this.data.baoxiaoDetail)
-        this.addLoading()
+        addLoading()
         let url = this.getAuxptyUrl(accountbookId, auxptyid)
         if(auxptyid == 2 && this.data.baoxiaoDetail.applicantType == 10) {
             url = url + '&id=' + this.data.baoxiaoDetail.applicantId
@@ -295,7 +294,6 @@ Page({
             url = url + '&id=' + this.data.baoxiaoDetail.applicantId
         }
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + url,
             method: 'GET',
             success: res => {
@@ -431,21 +429,6 @@ Page({
         }
         return name
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     submitBaoxiaoDetail() {
         const validSuccess = this.valid(this.data.baoxiaoDetail)
         if(validSuccess) {
@@ -457,12 +440,12 @@ Page({
                 item.trueSubjectId = item.subjectId
                 item.billDetailTrueApEntityListObj = clone(item.billDetailApEntityListObj)
             })
-            this.addLoading()
+            addLoading()
             wx.setStorage({
                 key: 'newBaoxiaoDetailArr',
                 data: tempData,
                 success: res => {
-                    this.hideLoading()
+                    hideLoading()
                     wx.navigateBack({
                         delta: 1
                     })
@@ -489,9 +472,8 @@ Page({
         }
     },
     getExtraInfo(extraId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'reimbursementBillExtraController.do?getDetail&subjectExtraId=' + extraId,
             method: 'GET',
             success: res => {
@@ -570,9 +552,8 @@ Page({
         this.goToInvoiceAccountbookList()
     },
     goToInvoiceAccountbookList() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceConfigController.do?getAccountbookListByUserId&userId=' + app.globalData.applicantId,
             method: 'GET',
             success: res => {
@@ -643,7 +624,7 @@ Page({
             let promiseList = []
             array.forEach(item => {
                 promiseList.push(new Promise((resolve, reject) => {
-                    this.addLoading()
+                    addLoading()
                     wx.uploadFile({
                         url: app.globalData.url + 'aliyunController/uploadImages.do',
                         name: item,
@@ -665,7 +646,7 @@ Page({
                             reject(res)
                         },
                         complete: res => {
-                            this.hideLoading()
+                            hideLoading()
                         }
                     })
                 }))
@@ -694,9 +675,8 @@ Page({
         }
     },
     doOCR(fileList, accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?doOCR',
             data: {
                 fileList: JSON.stringify(fileList),
@@ -796,10 +776,9 @@ Page({
                 }
             }
         })
-        this.addLoading()
+        addLoading()
         this.addSuffix(data)
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?doAddList',
             method: 'POST',
             headers:  {'Content-Type': 'application/json;charset=utf-8'},
@@ -1006,9 +985,8 @@ Page({
         this.setInvoiceInBaoxiaoDetail(list)
     },
     getInvoiceDetailById(ids) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading(),
             method: 'GET',
             url: app.globalData.url + 'invoiceInfoController.do?getInvoiceInfoByIds',
             data: {
@@ -1070,9 +1048,8 @@ Page({
             subjectName: this.data.baoxiaoDetail.subjectName
         }
         this.formatBudgetData(this.data.baoxiaoDetail.billDetailApEntityListObj, 'billApEntityList', params)
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'budgetController.do?getBudgetAmount',
             method: 'POST',
             data: params,

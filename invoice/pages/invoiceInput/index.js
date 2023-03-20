@@ -1,9 +1,9 @@
 import moment from "moment";
 import {cloneDeep as clone} from "lodash";
+import {addLoading, hideLoading, formatNumber, request} from '../../../util/getErrorMessage'
 
 var app = getApp()
 app.globalData.loadingCount = 0
-import {formatNumber, request} from '../../../util/getErrorMessage'
 Page({
     data: {
         imgUrl: '',
@@ -112,9 +112,8 @@ Page({
         }
     },
     getInvoiceImgUrl(id) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?getInvoiceInfoByIds',
             data: {
                 ids: id,
@@ -320,9 +319,8 @@ Page({
         }
     },
     getAccountbookList() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceConfigController.do?getAccountbookListByUserId&userId=' + app.globalData.applicantId,
             method: 'GET',
             success: res => {
@@ -374,21 +372,6 @@ Page({
                 }
             },
         })
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
     },
     onBusinessFocus(e) {
         const name = e.currentTarget.dataset.name

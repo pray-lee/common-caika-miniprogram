@@ -1,8 +1,9 @@
 import moment from "moment";
 import {cloneDeep as clone} from "lodash";
-import {formatNumber, validFn, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber, validFn, request} from "../../../util/getErrorMessage";
 
 const app = getApp()
+app.globalData.loadingCount = 0
 Page({
     data: {
         isPhoneXSeries: false,
@@ -235,21 +236,6 @@ Page({
             importList
         })
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     onKeyboardShow() {
         this.setData({
             btnHidden: true
@@ -262,9 +248,8 @@ Page({
     },
     // 发票
     onAddShow(e) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceConfigController.do?getInvoiceConfigByAccountbook&accountbookId=' + this.data.accountbookId,
             method: 'GET',
             success: res => {
@@ -303,9 +288,8 @@ Page({
         this.goToInvoiceAccountbookList()
     },
     goToInvoiceAccountbookList() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceConfigController.do?getAccountbookListByUserId&userId=' + app.globalData.applicantId,
             method: 'GET',
             success: res => {
@@ -379,7 +363,7 @@ Page({
             let promiseList = []
             array.forEach(item => {
                 promiseList.push(new Promise((resolve, reject) => {
-                    this.addLoading()
+                    addLoading()
                     wx.uploadFile({
                         url: app.globalData.url + 'aliyunController/uploadImages.do',
                         name: item,
@@ -401,7 +385,7 @@ Page({
                             reject(res)
                         },
                         complete: res => {
-                            this.hideLoading()
+                            hideLoading()
                         }
                     })
                 }))
@@ -430,9 +414,8 @@ Page({
         }
     },
     doOCR(fileList, accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?doOCR',
             data: {
                 fileList: JSON.stringify(fileList),
@@ -538,10 +521,9 @@ Page({
                 }
             }
         })
-        this.addLoading()
+        addLoading()
         this.addSuffix(data)
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?doAddList',
             method: 'POST',
             headers:  {'Content-Type': 'application/json;charset=utf-8'},
@@ -671,9 +653,8 @@ Page({
         this.setInvoiceInFukuanDetail(list)
     },
     getInvoiceDetailById(ids) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading(),
             method: 'GET',
             url: app.globalData.url + 'invoiceInfoController.do?getInvoiceInfoByIds',
             data: {

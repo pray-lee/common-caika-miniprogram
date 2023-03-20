@@ -1,7 +1,8 @@
-const app = getApp()
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-import {request, validFn} from '../../../util/getErrorMessage'
+import {addLoading, hideLoading, request, validFn} from '../../../util/getErrorMessage'
+const app = getApp()
+app.globalData.loadingCount = 0
 Page({
     data: {
         customInfo: {},
@@ -21,28 +22,12 @@ Page({
             }
         })
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     updateInfo() {
         if(this.valid(this.data.customInfo)) {
             const tempData = clone(this.data.customInfo)
             tempData.id = this.data.customInfo.customerId
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'customerDetailController.do?doUpdateForPop',
                 method: 'GET',
                 data: tempData,

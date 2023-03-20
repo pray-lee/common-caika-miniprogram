@@ -1,6 +1,6 @@
+import {addLoading, hideLoading, formatNumber, request} from '../../../util/getErrorMessage'
 var app = getApp()
 app.globalData.loadingCount = 0
-import {formatNumber, request} from '../../../util/getErrorMessage'
 
 Page({
     data: {
@@ -316,9 +316,8 @@ Page({
     },
     getJiekuanList(status) {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'borrowBillController.do?datagrid&reverseVerifyStatus=0&sort=updateDate&order=desc&' + status + '&field=id,,accountbookId,billCode,accountbook.accountbookName,submitterDepartmentId,departDetail.depart.departName,applicantType,applicantId,applicantName,incomeBankName,incomeBankName_begin,incomeBankName_end,incomeBankAccount,incomeBankAccount_begin,incomeBankAccount_end,subjectName,auxpropertyNames,capitalTypeDetailEntity.detailName,amount,unpaidAmount,paidAmount,unverifyAmount,submitter.id,submitter.realName,invoice,contractNumber,submitDate,submitDate_begin,submitDate_end,status,businessDateTime,businessDateTime_begin,businessDateTime_end,remark,createDate,createDate_begin,createDate_end,updateDate,updateDate_begin,updateDate_end,accountbook.oaModule,',
                 method: 'GET',
                 success: res => {
@@ -335,9 +334,8 @@ Page({
     },
     getBaoxiaoList(status) {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'reimbursementBillController.do?datagrid&reverseVerifyStatus=0&sort=updateDate&order=desc&' + status + '&field=id,billCode,accountbookId,accountbook.accountbookName,submitterDepartmentId,departDetail.depart.departName,applicantType,applicantId,applicantName,incomeBankName,incomeBankAccount,invoice,applicationAmount,verificationAmount,totalAmount,unpaidAmount,paidAmount,unverifyAmount,businessDateTime,createDate,updateDate,remark,submitterId,submitter.realName,childrenCount,accountbook.oaModule,status',
                 method: 'GET',
                 success: res => {
@@ -356,9 +354,8 @@ Page({
     },
     getKaipiaoList(status) {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'invoicebillController.do?datagrid&sort=createDate&order=desc&' + status + '&field=id,createDate,invoicebillCode,accountbookId,accountbookName,submitterId,submitterName,submitterDepartmentId,departName,customerDetailId,customerName,invoiceType,taxRate,amount,unverifyAmount,unverifyReceivableAmount,submitDateTime,contacts,telephone,address,status,businessDateTime,remark,billCode',
                 method: 'GET',
                 success: res => {
@@ -377,9 +374,8 @@ Page({
     },
     getFukuanList(status) {
         return new Promise((resolve, reject) => {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'paymentBillController.do?datagrid&reverseVerifyStatus=0&sort=createDate&order=desc&' + status + '&field=id,billCode,accountbookId,accountbook.accountbookName,submitterDepartmentId,departDetail.depart.departName,supplierId,supplierName,applicantType,applicantId,applicantName,submitterId,submitter.realName,incomeBankName,incomeBankAccount,invoice,applicationAmount,verificationAmount,totalAmount,unpaidAmount,paidAmount,unverifyAmount,businessDateTime,createDate,updateDate,remark,childrenCount,status,accountbook.oaModule,oaModule,',
                 method: 'GET',
                 success: res => {
@@ -393,23 +389,6 @@ Page({
                 }
             })
         })
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
-        }
     },
     onAddShow() {
         this.animation.translateY(0).step()
@@ -549,9 +528,8 @@ Page({
                     x: 0
                 })
                 if (res.confirm) {
-                    this.addLoading()
+                    addLoading()
                     request({
-                        hideLoading: this.hideLoading,
                         url,
                         method: 'GET',
                         success: res => {

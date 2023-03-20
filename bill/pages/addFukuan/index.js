@@ -1,7 +1,7 @@
 import moment from "moment";
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-import {getErrorMessage, submitSuccess, formatNumber, validFn, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, getErrorMessage, submitSuccess, formatNumber, validFn, request} from "../../../util/getErrorMessage";
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -95,21 +95,6 @@ Page({
             })
         })
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     formSubmit(e) {
         // ==================处理审批流数据==================
         if(this.data.nodeList.length) {
@@ -142,7 +127,7 @@ Page({
         })
         this.formatSubmitData(this.data.importList, 'borrowBillList')
         this.formatSubmitData(this.data.submitData.billFilesObj, 'billFiles')
-        this.addLoading()
+        addLoading()
         var url = ''
         if (this.data.type === 'add') {
             url = app.globalData.url + 'paymentBillController.do?doAdd'
@@ -157,7 +142,6 @@ Page({
             }
         }
         request({
-            hideLoading: this.hideLoading,
             url,
             method: 'POST',
             data: submitData,
@@ -511,7 +495,7 @@ Page({
      */
     uploadFile(array) {
         if (array.length) {
-            this.addLoading()
+            addLoading()
             let promiseList = []
             array.forEach(item => {
                 promiseList.push(new Promise((resolve, reject) => {
@@ -540,7 +524,7 @@ Page({
             })
             Promise.all(promiseList).then(res => {
                 // 提交成功的处理逻辑
-                this.hideLoading()
+                hideLoading()
                 console.log(res)
                 var billFilesList = []
                 res.forEach(item => {
@@ -553,7 +537,7 @@ Page({
                     }
                 })
             }).catch(error => {
-                this.hideLoading()
+                hideLoading()
                 console.log(error, 'catch')
                 wx.showModal({
                     content: '上传失败',
@@ -622,9 +606,8 @@ Page({
     },
     // =============================================================================
     getHistoryOaList(query) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'oaController.do?lastActivityNodeList&billId=' + query.id,
             method: 'GET',
             success: res => {
@@ -737,9 +720,8 @@ Page({
     },
     // 通过单据判断
     showOaProcessByBillType(accountbookId, billType) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'oaBillConfigController.do?getEnableStatus&accountbookId=' + accountbookId + '&billType=' + billType,
             method: 'GET',
             success: res => {
@@ -789,9 +771,8 @@ Page({
     },
     getProcess(fields) {
         const params = this.getOaParams(fields, 3)
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'oaBillConfigController.do?getOAUserList' + params,
             method: 'GET',
             success: res => {
@@ -857,9 +838,8 @@ Page({
             data: nodeIndex
         })
         const accountbookId = this.data.submitData.accountbookId
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'newDepartDetailController.do?treeListWithUser&accountbookId=' + accountbookId,
             method: 'GET',
             success: res => {
@@ -1014,9 +994,8 @@ Page({
     },
     // 获取申请组织
     getAccountbookList(data) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'accountbookController.do?getAccountbooksJsonByUserId',
             method: 'GET',
             success: res => {
@@ -1075,9 +1054,8 @@ Page({
     },
     // 获取申请部门
     getDepartmentList(accountbookId, departmentId, billDetailList, taxpayerType) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'newDepartController.do?departsJson&accountbookId=' + accountbookId,
             method: 'GET',
             dataType: 'json',
@@ -1124,9 +1102,8 @@ Page({
     },
     // 获取借款单位
     getBorrowBillList(accountbookId, applicantType, applicant, incomeBankName) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading:this.hideLoading,
             url: app.globalData.url + 'borrowBillController.do?borrowerObjectList&accountbookId=' + accountbookId + '&applicantType=' + applicantType + '&billType=9',
             method: 'GET',
             success: res => {
@@ -1173,9 +1150,8 @@ Page({
     },
     // 获取收款银行
     getIncomeBankList(applicantType, applicantId, incomeBankName) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'incomeBankInfoController.do?listInfo&applicantType=' + applicantType + '&applicantId=' + applicantId,
             method: 'GET',
             success: res => {
@@ -1242,7 +1218,7 @@ Page({
             })
            return
         }
-        this.addLoading()
+        addLoading()
         request({
             url: app.globalData.url + 'payableBillController.do?datagrid&supplierId='+this.data.submitData.applicantId+'&query=import&field=id,billCode,accountbookId,accountbookName,submitterId,submitterName,submitterDepartmentId,departName,supplierId,supplierName,invoiceType,subjectId,trueSubjectId,subjectName,trueSubjectName,auxpropertyNames,taxRate,amount,unverifyAmount,submitDateTime,businessDateTime,remark,',
             method: 'GET',
@@ -1257,14 +1233,14 @@ Page({
                         key: 'tempImportList',
                         data: res.data.rows,
                         success: res => {
-                           this.hideLoading()
+                           hideLoading()
                            wx.navigateTo({
                                url: '/bill/pages/importYingshouList/index?origin=fukuan'
                            })
                         }
                     })
                 }else{
-                    this.hideLoading()
+                    hideLoading()
                     wx.showModal({
                         content: '暂无应付单',
                         confirmText: '好的',
@@ -1304,9 +1280,8 @@ Page({
     },
     // 请求编辑回显数据
     getEditData(id) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'paymentBillController.do?getDetail&id=' + id,
             method: 'GET',
             dataType: 'json',
@@ -1417,9 +1392,8 @@ Page({
             this.setData({
                 clickFlag: false
             })
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'borrowBillController.do?dataGridManager&accountbookId=' + this.data.submitData.accountbookId + '&applicantType=' + this.data.submitData.applicantType + '&applicantId=' + this.data.submitData.applicantId + '&invoice=' + invoice + '&query=import&field=id,billCode,accountbookId,departDetail.id,departDetail.depart.departName,applicantId,applicantName,subjectId,subject.fullSubjectName,auxpropertyNames,submitter.id,submitter.realName,invoice,contractNumber,currencyTypeId,amount,originAmount,unverifyAmount,originUnverifyAmount,remark,businessDateTime,submitDate',
                 method: 'GET',
                 success: res => {
@@ -1581,9 +1555,8 @@ Page({
             cancelText: '否',
             success: res => {
                 if(res.confirm) {
-                    this.addLoading()
+                    addLoading()
                     request({
-                        hideLoading: this.hideLoading,
                         url: app.globalData.url + 'paymentBillController.do?doBatchDel&ids=' + this.data.billId,
                         method: 'GET',
                         success: res => {
@@ -1606,9 +1579,8 @@ Page({
         })
     },
     getProcessInstance(billId, accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'weixinController.do?getProcessinstanceJson&billType=3&billId=' + billId + '&accountbookId=' + accountbookId,
             method: 'GET',
             success: res => {

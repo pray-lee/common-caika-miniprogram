@@ -1,3 +1,4 @@
+const app = getApp()
 const getErrorMessage = string => {
     const error = string.match(/<\/P>[\W\w]+<P>/gi)[0]
     const newError = error.replace(/<[^>]+>/gi, "")
@@ -10,10 +11,27 @@ const getErrorMessage = string => {
         },
     });
 }
+const addLoading = () => {
+    if (app.globalData.loadingCount < 1) {
+        wx.showLoading({
+            content: '加载中...',
+            mask: true,
+        })
+    }
+    app.globalData.loadingCount += 1
+}
+const hideLoading = () => {
+    if (app.globalData.loadingCount <= 1) {
+        wx.hideLoading()
+        app.globalData.loadingCount = 0
+    } else {
+        app.globalData.loadingCount -= 1
+    }
+}
 
 const submitSuccess = () => {
     console.log('submit success...')
-    wx.reLaunch({
+    wx.navigateTo({
         url: '/pages/home/index'
     })
 }
@@ -40,7 +58,8 @@ const formatNumber = (num) => {
 const validFn = message => {
     wx.showToast({
         icon: 'none',
-        title: message
+        title: message,
+        duration: 2000
     })
 }
 
@@ -59,7 +78,7 @@ const request = option => {
             console.log(new Date(), option.url)
             if (typeof res.data !== 'string' || res.data.indexOf('主框架') === -1) {
                 option.success(res)
-            }else{
+            } else {
                 // wx.removeStorage({
                 //     key: 'sessionId',
                 //     success: res => {
@@ -74,17 +93,20 @@ const request = option => {
             }
         },
         complete: res => {
+            hideLoading()
             if (typeof option.complete === 'function') {
                 option.complete(res)
             }
-            if (typeof option.hideLoading === 'function') {
-                option.hideLoading()
+            if (res.statusCode == '404') {
+                validFn('404, 发生请求错误')
             }
         }
     })
 }
 
 export {
+    addLoading,
+    hideLoading,
     getErrorMessage,
     submitSuccess,
     loginFiled,

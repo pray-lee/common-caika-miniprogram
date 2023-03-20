@@ -1,4 +1,4 @@
-import {formatNumber, request} from '../../../util/getErrorMessage'
+import {addLoading, hideLoading, formatNumber, request} from '../../../util/getErrorMessage'
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -62,10 +62,9 @@ Page({
         return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
     },
     getExpressList() {
-        this.addLoading()
+        addLoading()
         const customerDetailId = wx.getStorageSync('customerDetailId')
         request({
-            hideLoading: this.hideLoading(),
             url: app.globalData.url + 'customerSpecialDeliveryController.do?listInfo&customerDetailId=' + customerDetailId,
             method: 'GET',
             success: res => {
@@ -93,23 +92,6 @@ Page({
             isPhoneXSeries: app.globalData.isPhoneXSeries,
         })
         this.getExpressList()
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
-        }
     },
     onShow() {
     },
@@ -147,9 +129,8 @@ Page({
                     x: 0
                 })
                 if (res.confirm) {
-                    this.addLoading()
+                    addLoading()
                     request({
-                        hideLoading: this.hideLoading,
                         url,
                         method: 'GET',
                         success: res => {

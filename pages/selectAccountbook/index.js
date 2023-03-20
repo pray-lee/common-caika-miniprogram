@@ -1,4 +1,4 @@
-import {request, validFn} from "../../util/getErrorMessage";
+import {addLoading, hideLoading, request, validFn} from "../../util/getErrorMessage";
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -7,22 +7,6 @@ Page({
         tenantList: [],
         phoneNumber: '',
         error: false
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                content: '加载中...'
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
-        }
     },
     onShow() {
         const tenantList = wx.getStorageSync('tenantList') || []
@@ -43,9 +27,8 @@ Page({
     handleSystemLogin(phoneNumber, tenantCode) {
         // 每次登录清理一下cookie, 要不然会串系统
         this.clearCookie()
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'loginController.do?checkuserByPhoneNumber',
             method: 'POST',
             data: {

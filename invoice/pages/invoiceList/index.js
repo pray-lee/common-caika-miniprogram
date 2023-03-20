@@ -1,9 +1,8 @@
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-
+import {addLoading, hideLoading, formatNumber, request} from '../../../util/getErrorMessage'
 var app = getApp()
 app.globalData.loadingCount = 0
-import {formatNumber, request} from '../../../util/getErrorMessage'
 
 Page({
     data: {
@@ -206,9 +205,8 @@ Page({
         })
     },
     getInvoiceListByType(type, useStatus) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?getInvoiceInfoByUserId',
             data: {
                 invoiceType: type,
@@ -248,23 +246,6 @@ Page({
             this.getInvoiceListByType(this.data.type, 1)
         }
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
-        }
-    },
     onAddShow() {
         this.animation.translateY(0).step()
         this.setData({
@@ -283,9 +264,8 @@ Page({
         this.goToInvoiceAccountbookList()
     },
     goToInvoiceAccountbookList() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceConfigController.do?getAccountbookListByUserId&userId=' + app.globalData.applicantId,
             method: 'GET',
             success: res => {
@@ -342,7 +322,7 @@ Page({
             let promiseList = []
             array.forEach(item => {
                 promiseList.push(new Promise((resolve, reject) => {
-                    this.addLoading()
+                    addLoading()
                     wx.uploadFile({
                         url: app.globalData.url + 'aliyunController/uploadImages.do',
                         name: item,
@@ -364,7 +344,7 @@ Page({
                             reject(res)
                         },
                         complete: res => {
-                            this.hideLoading()
+                            hideLoading()
                         }
                     })
                 }))
@@ -393,9 +373,8 @@ Page({
         }
     },
     doOCR(fileList, accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?doOCR',
             data: {
                 fileList: JSON.stringify(fileList),
@@ -498,10 +477,9 @@ Page({
                 }
             }
         })
-        this.addLoading()
+        addLoading()
         this.addSuffix(data)
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoiceInfoController.do?doAddList',
             method: 'POST',
             headers:  {'Content-Type': 'application/json;charset=utf-8'},
@@ -565,9 +543,8 @@ Page({
             cancelColor: '#ff5252',
             success: res => {
                 if(res.confirm) {
-                    this.addLoading()
+                    addLoading()
                     request({
-                        hideLoading: this.hideLoading(),
                         url: app.globalData.url + 'invoiceInfoController.do?doBatchDel',
                         data: {
                             ids: id

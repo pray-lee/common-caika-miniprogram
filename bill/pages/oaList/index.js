@@ -1,6 +1,6 @@
+import {addLoading, hideLoading, formatNumber, request} from '../../../util/getErrorMessage'
 var app = getApp()
 app.globalData.loadingCount = 0
-import {formatNumber, request} from '../../../util/getErrorMessage'
 
 Page({
     data: {
@@ -33,29 +33,13 @@ Page({
     onShow() {
         this.getOaList()
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     getOaList() {
         const url = this.data.undo ?
             app.globalData.url + 'oaTaskController.do?todoDatagrid&field=id,accountbookId,accountbookName,billType,billCode,billId,submitterDepartmentId,submitterDepartmentName,submitterName,createDate,billAmount,taskEndTime,taskEndTime_begin,taskEndTime_end,activeUserNames,taskName,'
             :
             app.globalData.url + 'oaTaskController.do?finishDatagrid&field=id,accountbookId,accountbookName,billType,billCode,billId,submitterDepartmentId,submitterDepartmentName,submitterName,createDate,billAmount,taskEndTime,taskEndTime_begin,taskEndTime_end,activeUserNames,taskName,'
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url,
             method: 'POST',
             success: res => {

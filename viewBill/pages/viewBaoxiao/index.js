@@ -1,4 +1,4 @@
-import {loginFiled, formatNumber, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, loginFiled, formatNumber, request} from "../../../util/getErrorMessage";
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
 
@@ -46,21 +46,6 @@ Page({
         }
         // oa===============================
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     previewFile(e) {
         var url = e.currentTarget.dataset.url
         wx.previewImage({
@@ -91,10 +76,9 @@ Page({
         this.setData({
             isPhoneXSeries: app.globalData.isPhoneXSeries
         })
-        this.addLoading()
+        addLoading()
         const id = query.id
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'reimbursementBillController.do?getDetail&id=' + id,
             method: 'GET',
             success: res => {
@@ -113,9 +97,8 @@ Page({
         this.getCaikaProcessInstance(query)
     },
     getHistoryOaList(query) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'oaController.do?lastActivityNodeList&billId=' + query.id,
             method: 'GET',
             success: res => {
@@ -143,9 +126,8 @@ Page({
         })
     },
     getCaikaProcessInstance(query) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'oaController.do?activityNodeList&billId=' + query.id,
             method: 'GET',
             success: res => {
@@ -331,9 +313,8 @@ Page({
         })
     },
     submitOa() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: `${app.globalData.url}oaTaskController.do?doProcess`,
             method: 'POST',
             data: this.data.submitOaData,
@@ -362,9 +343,8 @@ Page({
     },
     // oa===============================
     getProcessInstance(billId, accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'weixinController.do?getProcessinstanceJson&billType=9&billId=' + billId + '&accountbookId=' + accountbookId,
             method: 'GET',
             success: res => {
@@ -429,7 +409,6 @@ Page({
     // ==========================外币==========================
     getCurrencyTagByAccountbookId(result) {
         request({
-            hideLoading: this.hideLoading,
             url: `${app.globalData.url}accountbookController.do?isMultiCurrency&accountbookId=${result.accountbookId}`,
             method: 'GET',
             success: res => {
@@ -472,9 +451,8 @@ Page({
         })
     },
     getCurrencyTypeListByAccountbookId(accountbookId, currencyTypeId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: `${app.globalData.url}currencyController.do?getCurrencyTypeList&accountbookId=${accountbookId}`,
             method: 'GET',
             success: res => {
@@ -489,9 +467,8 @@ Page({
         })
     },
     getReimbursementName(reimbursementType) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: `${app.globalData.url}reimbursementTypeController.do?getList`,
             method: 'GET',
             success: res => {
@@ -505,9 +482,8 @@ Page({
         })
     },
     getBaseCurrencyNameByAccountbookId(accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: `${app.globalData.url}accountbookController.do?getBaseCurrencyInfo&accountbookId=${accountbookId}`,
             method: 'GET',
             success: res => {

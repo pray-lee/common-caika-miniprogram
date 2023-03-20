@@ -1,6 +1,6 @@
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-import {formatNumber, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber, request} from "../../../util/getErrorMessage";
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -39,21 +39,6 @@ Page({
         }
         // oa===============================
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     previewFile(e) {
         var url = e.currentTarget.dataset.url
         wx.previewImage({
@@ -83,10 +68,9 @@ Page({
         this.setData({
             isPhoneXSeries: app.globalData.isPhoneXSeries
         })
-        this.addLoading()
+        addLoading()
         const id = query.id
         request({
-            hideLoading: this.hideLoading(),
             url: app.globalData.url + 'paymentBillController.do?getDetail&id=' + id,
             method: 'GET',
             success: res => {
@@ -115,9 +99,8 @@ Page({
         this.getCaikaProcessInstance(query)
     },
     getHistoryOaList(query) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'oaController.do?lastActivityNodeList&billId=' + query.id,
             method: 'GET',
             success: res => {
@@ -145,9 +128,8 @@ Page({
         })
     },
     getCaikaProcessInstance(query) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'oaController.do?activityNodeList&billId=' + query.id,
             method: 'GET',
             success: res => {
@@ -333,9 +315,8 @@ Page({
         })
     },
     submitOa() {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: `${app.globalData.url}oaTaskController.do?doProcess`,
             method: 'POST',
             data: this.data.submitOaData,
@@ -364,9 +345,8 @@ Page({
     },
     // oa===============================
     getProcessInstance(billId, accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'weixinController.do?getProcessinstanceJson&billType=9&billId=' + billId + '&accountbookId=' + accountbookId,
             method: 'GET',
             success: res => {

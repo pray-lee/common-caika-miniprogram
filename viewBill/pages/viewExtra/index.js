@@ -1,6 +1,6 @@
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-import {formatNumber} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber} from "../../../util/getErrorMessage";
 
 const app = getApp()
 app.globalData.loadingCount = 0
@@ -46,20 +46,5 @@ Page({
             array.push(obj)
         })
         return array
-    },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
     },
 })

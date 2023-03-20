@@ -1,27 +1,19 @@
-import {getErrorMessage, request, validFn} from "../../util/getErrorMessage";
+import {addLoading, hideLoading, getErrorMessage, request, validFn} from "../../util/getErrorMessage";
 var app = getApp()
 app.globalData.loadingCount = 0
 Page({
     data: {
         checked: false,
+        openId: ''
     },
+    onLoad(query) {
+        const openId = query?.openId
+        this.setData({
+            openId
+        })
+    },
+
     onShow() {},
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                content: '加载中...'
-            })
-        }
-        app.globalData.loadingCount += 1
-    },
-    hideLoading() {
-        if (app.globalData.loadingCount <= 1) {
-            wx.hideLoading()
-            app.globalData.loadingCount = 0
-        } else {
-            app.globalData.loadingCount -= 1
-        }
-    },
     getPhoneNumber(e) {
         if (e?.detail?.errMsg === "getPhoneNumber:ok") {
             const code = e.detail.code
@@ -35,10 +27,9 @@ Page({
         wx.setStorageSync('tenantList', tenantList)
     },
     handlePhoneNumber(code) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
-            url: app.globalData.url + 'miniProgramController.do?getPhoneNumber&code=' + code,
+            url: app.globalData.url + 'miniProgramController.do?getPhoneNumber&code=' + code + '&openId=' + this.data.openId,
             method: 'GET',
             success: res => {
                 if (res.data && typeof res.data == 'string') {
@@ -55,7 +46,7 @@ Page({
                         url: '/pages/selectAccountbook/index'
                     })
                 }
-            }
+            },
         })
     },
     checkboxChange(e) {

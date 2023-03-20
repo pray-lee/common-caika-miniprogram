@@ -1,5 +1,5 @@
 import {cloneDeep as clone} from "lodash";
-import {getErrorMessage, submitSuccess, formatNumber, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, getErrorMessage, submitSuccess, formatNumber, request} from "../../../util/getErrorMessage";
 import moment from "moment";
 
 var app = getApp()
@@ -67,21 +67,6 @@ Page({
             }
         })
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     formatExpress() {
         const expressInfo = wx.getStorageSync('expressInfo')
         if (!!expressInfo) {
@@ -112,7 +97,7 @@ Page({
         this.formatSubmitData(this.data.submitData.billFilesObj, 'billFiles')
         // 处理快递信息
         this.formatExpress()
-        this.addLoading()
+        addLoading()
         var url = ''
         if (this.data.type === 'add') {
             url = app.globalData.url + 'invoicebillController.do?doAdd'
@@ -127,7 +112,6 @@ Page({
             }
         }
         request({
-            hideLoading: this.hideLoading,
             url,
             method: 'POST',
             data: submitData,
@@ -232,9 +216,8 @@ Page({
     },
     // 获取开票内容
     getRemarks(accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading(),
             method: 'GET',
             url: app.globalData.url + 'invoicebillDetailController.do?findRemark&accountbookId=' + accountbookId,
             success: res => {
@@ -271,9 +254,8 @@ Page({
     },
     // 请求编辑回显数据
     getEditData(id) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'invoicebillController.do?getDetail&id=' + id,
             method: 'GET',
             dataType: 'json',
@@ -462,7 +444,7 @@ Page({
             })
             return
         }
-        this.addLoading()
+        addLoading()
         request({
             url: app.globalData.url + 'receivableBillController.do?datagrid&customerDetailId=' + this.data.customerDetail.id + '&taxRate=' + this.data.taxRateArr[this.data.taxRateIndex] + '&invoiceType=' + this.data.submitData.invoiceType + '&query=import&field=id,receivablebillCode,accountbookId,accountbookName,submitterId,submitterName,submitterDepartmentId,departName,customerDetailId,customerName,invoiceType,subjectId,trueSubjectId,subjectName,trueSubjectEntity.fullSubjectName,auxpropertyNames,taxRate,amount,unverifyAmount,submitDateTime,businessDateTime,remark,',
             method: 'GET',
@@ -472,14 +454,14 @@ Page({
                         key: 'tempImportList',
                         data: res.data.rows,
                         success: () => {
-                            this.hideLoading()
+                            hideLoading()
                             wx.navigateTo({
                                 url: '/bill/pages/importYingshouList/index'
                             })
                         }
                     })
                 } else {
-                    this.hideLoading()
+                    hideLoading()
                     wx.showModal({
                         content: '暂无应收单',
                         confirmText: '好的',
@@ -652,7 +634,7 @@ Page({
             let promiseList = []
             array.forEach(item => {
                 promiseList.push(new Promise((resolve, reject) => {
-                    this.addLoading()
+                    addLoading()
                     wx.uploadFile({
                         url: app.globalData.url + 'aliyunController/uploadImages.do',
                         name: item,
@@ -674,7 +656,7 @@ Page({
                             reject(res)
                         },
                         complete: res => {
-                            this.hideLoading()
+                            hideLoading()
                         }
                     })
                 }))
@@ -738,9 +720,8 @@ Page({
         }
     },
     getAccountbookList(data) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'accountbookController.do?getAccountbooksJsonByUserId',
             method: 'GET',
             success: res => {
@@ -777,9 +758,8 @@ Page({
     },
     // 获取申请部门
     getDepartmentList(accountbookId, departmentId, billDetailList) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'newDepartController.do?departsJson&accountbookId=' + accountbookId,
             method: 'GET',
             success: res => {
@@ -826,9 +806,8 @@ Page({
     },
     // 获取科目类型
     getSubjectList(accountbookId, departId, billDetailList) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading,
             url: app.globalData.url + 'subjectController.do?combotree&accountbookId=' + accountbookId + '&departId=' + departId + '&billTypeId=5&findAll=false',
             method: 'GET',
             success: res => {
@@ -918,9 +897,8 @@ Page({
     },
     // 获取客户信息
     getCustomerList(accountbookId) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading(),
             url: app.globalData.url + 'customerDetailController.do?json&accountbook.id=' + accountbookId,
             method: 'GET',
             success: res => {
@@ -934,12 +912,12 @@ Page({
         })
     },
     goCustomerList() {
-        this.addLoading()
+        addLoading()
         wx.setStorage({
             key: 'customerList',
             data: this.data.customerList,
             success: () => {
-                this.hideLoading()
+                hideLoading()
                 wx.navigateTo({
                     url: '/bill/pages/customerList/index'
                 })
@@ -1018,9 +996,8 @@ Page({
     },
     // 获取某个账簿的税率
     getTaxRateFromAccountbookId(accountbookId, taxRate) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading(),
             method: 'GET',
             url: app.globalData.url + 'accountbookController.do?findAccountbookTaxrate&accountbookId=' + accountbookId,
             success: res => {
@@ -1080,7 +1057,7 @@ Page({
                 console.log('编辑标志缓存成功...')
             }
         })
-        this.addLoading()
+        addLoading()
         var obj = this.generateBaseDetail()
         wx.setStorage({
             key: 'index',
@@ -1093,9 +1070,8 @@ Page({
         this.data.kaipiaoList[index].remarkIndex = 0
         console.log(this.data.kaipiaoList[index], '[home]')
         if (!!this.data.kaipiaoList[index].billId && !this.data.kaipiaoList[index].selectedAuxpty) {
-            this.addLoading()
+            addLoading()
             request({
-                hideLoading: this.hideLoading,
                 url: app.globalData.url + 'receivableBillController.do?getDetail&id=' + this.data.kaipiaoList[index].billId,
                 method: 'GET',
                 dataType: 'json',
@@ -1118,7 +1094,7 @@ Page({
                                     key: 'initKaipiaoDetail',
                                     data: obj,
                                     success: res => {
-                                        this.hideLoading()
+                                        hideLoading()
                                         wx.navigateTo({
                                             url: '/bill/pages/kaipiaoDetail/index'
                                         })
@@ -1138,7 +1114,7 @@ Page({
                         key: 'initKaipiaoDetail',
                         data: obj,
                         success: res => {
-                            this.hideLoading()
+                            hideLoading()
                             wx.navigateTo({
                                 url: '/bill/pages/kaipiaoDetail/index'
                             })
@@ -1178,9 +1154,8 @@ Page({
             cancelText: '否',
             success: res => {
                 if (res.confirm) {
-                    this.addLoading()
+                    addLoading()
                     request({
-                        hideLoading: this.hideLoading,
                         url: app.globalData.url + 'invoicebillController.do?doBatchDel&ids=' + this.data.billId,
                         method: 'GET',
                         success: res => {

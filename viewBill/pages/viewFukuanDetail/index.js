@@ -1,5 +1,5 @@
 import {cloneDeep as clone} from "lodash";
-import {formatNumber, request} from "../../../util/getErrorMessage";
+import {addLoading, hideLoading, formatNumber, request} from "../../../util/getErrorMessage";
 
 const app = getApp()
 Page({
@@ -31,21 +31,6 @@ Page({
     },
     onShow() {
     },
-    addLoading() {
-        if (app.globalData.loadingCount < 1) {
-            wx.showLoading({
-                title: '加载中...',
-                mask: true,
-            })
-        }
-        app.globalData.loadingCount++
-    },
-    hideLoading() {
-        app.globalData.loadingCount--
-        if (app.globalData.loadingCount <= 0) {
-            wx.hideLoading()
-        }
-    },
     onKeyboardShow() {
         this.setData({
             btnHidden: true
@@ -58,9 +43,8 @@ Page({
     },
     // 发票
     getInvoiceDetailById(ids) {
-        this.addLoading()
+        addLoading()
         request({
-            hideLoading: this.hideLoading(),
             method: 'GET',
             url: app.globalData.url + 'invoiceInfoController.do?getInvoiceInfoByIds',
             data: {
