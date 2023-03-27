@@ -363,7 +363,7 @@ Page({
                         })
                     }
 
-                    const operationArr = operationRecords.filter(item => {
+                    const operationArr = operationRecords?.filter(item => {
                         item.userName = item.userid.split(',')[0]
                         item.avatar = item.userid.split(',')[1]
                         // if(item.operationType === 'START_PROCESS_INSTANCE') {

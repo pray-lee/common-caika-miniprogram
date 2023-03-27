@@ -770,7 +770,7 @@ Page({
                 applicantId: app.globalData.applicantId
             }
         })
-        var type = query.type
+        var type = query?.type
         this.setData({
             type
         })
@@ -986,7 +986,7 @@ Page({
         return []
     },
     setRenderProgress(nodeList=[]) {
-        const newNodeList = nodeList.map(node => {
+        const newNodeList = nodeList?.map(node => {
             return {
                 ...node,
                 oaBillUserList: this.handleUserName('showUserName', 'userName', node.oaBillUserList) || [],
@@ -2077,7 +2077,7 @@ Page({
                         })
                     }
 
-                    const operationArr = operationRecords.filter(item => {
+                    const operationArr = operationRecords?.filter(item => {
                         item.userName = item.userid.split(',')[0]
                         item.avatar = item.userid.split(',')[1]
                         // if(item.operationType === 'START_PROCESS_INSTANCE') {

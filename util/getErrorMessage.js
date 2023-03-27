@@ -31,7 +31,7 @@ const hideLoading = () => {
 
 const submitSuccess = () => {
     console.log('submit success...')
-    wx.navigateTo({
+    wx.reLaunch({
         url: '/pages/home/index'
     })
 }
@@ -56,10 +56,12 @@ const formatNumber = (num) => {
 }
 
 const validFn = message => {
-    wx.showToast({
-        icon: 'none',
-        title: message,
-        duration: 2000
+    wx.showModal({
+        content: message,
+        confirmText: '确定',
+        showCancel: false,
+        success: () => {
+        },
     })
 }
 

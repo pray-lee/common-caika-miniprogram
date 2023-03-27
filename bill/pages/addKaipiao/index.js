@@ -309,7 +309,7 @@ Page({
                 billCode: data.billCode,
                 remark: data.remark,
                 deliveryMode: data.deliveryMode,
-                invoiceType: customerDetail.invoiceType || 1,
+                invoiceType: customerDetail?.invoiceType || 1,
                 contacts: (data.contacts ? data.contacts : null),
                 telephone: (data.telephone ? data.telephone : null),
                 address: (data.address ? data.address : null),
@@ -702,7 +702,7 @@ Page({
                 ...this.data.submitData,
             }
         })
-        var type = query.type
+        var type = query?.type
         this.setData({
             type
         })

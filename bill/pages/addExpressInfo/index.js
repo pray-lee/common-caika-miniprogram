@@ -11,7 +11,7 @@ Page({
             const expressInfo = wx.getStorageSync('expressInfo')
             this.setData({
                 expressInfo,
-                type: query.type
+                type: query?.type
             })
         }
     },

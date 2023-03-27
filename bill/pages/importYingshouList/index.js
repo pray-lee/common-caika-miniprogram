@@ -200,7 +200,7 @@ Page({
                         totalAmount: '0.00'
                     })
                     wx.navigateTo({
-                        url: '/invoice/pages/importYingshouInputList/index?origin=' + this.data.origin
+                        url: '/bill/pages/importYingshouInputList/index?origin=' + this.data.origin
                     })
                 }
             })

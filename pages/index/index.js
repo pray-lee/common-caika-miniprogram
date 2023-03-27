@@ -35,11 +35,11 @@ Page({
                             phoneNumber,
                             tenantList
                         })
-                        wx.navigateTo({
+                        wx.redirectTo({
                             url: '/pages/selectAccountbook/index'
                         })
                     } else {
-                        wx.navigateTo({
+                        wx.redirectTo({
                             url: `/pages/auth/index?openId=${res.data?.result?.openId}`
                         })
                     }
