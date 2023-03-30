@@ -12,6 +12,7 @@ App({
         // url: 'http://192.168.10.148:8081/saas/',
         // url: 'http://192.168.10.148:8080/jeecg/',
         // url: 'https://www.caika.net/ucommune-test/',
-        url: 'https://www.caika.net/saas/',
+        url: 'http://192.168.10.101:8080/jeecg/',
+        // url: 'https://www.caika.net/saas/',
     }
 });
