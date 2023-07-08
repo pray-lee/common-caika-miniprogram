@@ -1,6 +1,14 @@
 import '../../../util/handleLodash'
 import {cloneDeep as clone} from 'lodash'
-import {addLoading, hideLoading,loginFiled, formatNumber, request} from "../../../util/getErrorMessage";
+import {
+    addLoading,
+    hideLoading,
+    loginFiled,
+    formatNumber,
+    request,
+    validFn,
+    getErrorMessage,
+} from "../../../util/getErrorMessage";
 
 var app = getApp()
 app.globalData.loadingCount = 0
@@ -8,6 +16,7 @@ Page({
     data: {
         // 增加申请人
         realName: '',
+        assignName: '',
         // =============外币相关============
         multiCurrency: false,
         baseCurrencyName: '',
@@ -52,10 +61,90 @@ Page({
             urls: [url],
         })
     },
+    handleSystemLogin(query) {
+        // 每次登录清理一下cookie, 要不然会串系统
+        this.clearCookie()
+        addLoading()
+        request({
+            url: app.globalData.url + 'loginController.do?checkuserByPhoneNumber',
+            method: 'POST',
+            data: {
+                phoneNumber: query?.phoneNumber,
+                tenantCode: query?.tenantId
+            },
+            success: res => {
+                this.setCookie(res)
+                if(res.data.success) {
+                    this.getDetailById(query)
+                }else{
+                    validFn(res.data.msg)
+                }
+            }
+        })
+    },
+    clearCookie() {
+        wx.setStorageSync('sessionId', '')
+    },
+    setCookie(res) {
+        let cookie = res.header['Set-Cookie']
+        cookie = cookie.replace(/JSESSIONID/, ';JSESSIONID')
+            .replace(/,db=/, ';db=')
+        console.log(cookie, 'coookie')
+        wx.setStorageSync('sessionId', cookie)
+    },
     getDetail(query) {
-       this.getDetailById(query)
+        if(!query.processInstanceId) {
+            this.getDetailById(query)
+        }else{
+            wx.login({
+                success: res => {
+                    hideLoading()
+                    if (res && res.code) {
+                        this.handleLogin(res.code, query)
+                    }
+                },
+                fail: error => {
+                    console.log(error, 'error');
+                    validFn(error.errMsg)
+                }
+            })
+        }
+    },
+    handleLogin(code = '', query) {
+        addLoading()
+        request({
+            url: app.globalData.url + 'miniProgramController.do?login&code=' + code,
+            method: 'GET',
+            success: res => {
+                if (res.data && typeof res.data == 'string') {
+                    getErrorMessage(res.data)
+                } else {
+                    if (res.data.success) {
+                        const tenantList = res.data.result?.tenantList || []
+                        const phoneNumber = res.data.result?.phoneNumber || ''
+                        this.setUserInfo({
+                            phoneNumber,
+                            tenantList
+                        })
+                        this.handleSystemLogin(query)
+                    } else {
+                        wx.redirectTo({
+                            url: `/pages/auth/index?openId=${res.data?.result?.openId}&querystring=${JSON.stringify(query)}`
+                        })
+                    }
+                }
+            },
+            fail: err => {
+                console.log('err', err)
+            }
+        })
+    },
+    setUserInfo({phoneNumber = null, tenantList = []}) {
+        wx.setStorageSync('phoneNumber', phoneNumber)
+        wx.setStorageSync('tenantList', tenantList)
     },
     onLoad(query) {
+        query.pageUrl = `/viewBill/pages/viewJiekuan/index`
         // 增加申请人
         this.setData({
             realName: app.globalData.realName
@@ -65,7 +154,29 @@ Page({
         })
         this.getDetail(query)
     },
-    getDetailById(query) {
+    async getUserInfo() {
+        addLoading()
+        request({
+            url: app.globalData.url + 'miniProgramController.do?getUserInfo',
+            method: 'GET',
+            // data:{},
+            success: res => {
+                if(res.data.success) {
+                    const {realName} = res.data.obj
+                    this.setData({
+                        assignName: realName
+                    })
+
+                }else{
+                    validFn(res.data.msg || '获取ERP用户信息失败')
+                }
+                console.log('用户信息', res)
+            }
+        })
+    },
+    async getDetailById(query) {
+        // 获取用户信息
+        await this.getUserInfo()
         // oa===============================
         if(query.processInstanceId) {
             this.setOaQuery(query)
@@ -176,7 +287,7 @@ Page({
     },
     // 通过审批节点判断当前的人，如果是当前人，现实操作蓝，如果不是就不显示
     judgeShowOaOperate(oaList) {
-        const result = oaList.some(item => item.status == 1 && item.assigneeName === (app.globalData.realName || wx.getStorageSync('realName')))
+        const result = oaList.some(item => item.status == 1 && item.assigneeName === this.data.assignName)
         this.setData({
             judgeShowOperate: result && this.data.submitOaData.id
         })

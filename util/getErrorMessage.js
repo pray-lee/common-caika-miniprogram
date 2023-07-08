@@ -105,6 +105,12 @@ const request = option => {
         }
     })
 }
+function qsString(obj) {
+    return Object.entries(obj)
+        .map(function ([key, value]) {
+            return `${key}=${value}`}
+        ).join('&');
+}
 
 export {
     addLoading,
@@ -114,5 +120,6 @@ export {
     loginFiled,
     formatNumber,
     validFn,
-    request
+    request,
+    qsString
 }

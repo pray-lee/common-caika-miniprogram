@@ -8,6 +8,7 @@ Page({
         addLoading()
         wx.login({
             success: res => {
+                console.log(res, 'res')
                 hideLoading()
                 if (res && res.code) {
                     this.handleLogin(res.code)
@@ -28,6 +29,7 @@ Page({
                 if (res.data && typeof res.data == 'string') {
                     getErrorMessage(res.data)
                 } else {
+                    // console.log(res, 'res')
                     if (res.data.success) {
                         const tenantList = res.data.result?.tenantList || []
                         const phoneNumber = res.data.result?.phoneNumber || ''

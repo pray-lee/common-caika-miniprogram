@@ -27,17 +27,6 @@ Page({
     getPhoneNumber(e) {
         console.log(e.detail.code)
     },
-    onShareAppMessage() {
-        return {
-            title: '这是刘希的小程序',
-            path: '/pages/home/index'
-        }
-    },
-    onShareTimeline() {
-        return {
-            title: '分享到朋友圈啦',
-        }
-    },
     gotoOaList() {
         wx.navigateTo({
             url: '/bill/pages/oaList/index'

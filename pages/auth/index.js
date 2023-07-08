@@ -1,15 +1,18 @@
-import {addLoading, hideLoading, getErrorMessage, request, validFn} from "../../util/getErrorMessage";
+import {addLoading, hideLoading, getErrorMessage, request, validFn, qsString} from "../../util/getErrorMessage";
 var app = getApp()
 app.globalData.loadingCount = 0
 Page({
     data: {
         checked: false,
-        openId: ''
+        openId: '',
+        queryParams: {},
     },
     onLoad(query) {
         const openId = query?.openId
+        const queryParams = query?.querystring ? JSON.parse(query.querystring) : {}
         this.setData({
-            openId
+            openId,
+            queryParams
         })
     },
 
@@ -42,9 +45,18 @@ Page({
                         phoneNumber,
                         tenantList
                     })
-                    wx.navigateTo({
-                        url: '/pages/selectAccountbook/index'
+                    wx.showModal({
+                        content: JSON.stringify(this.data.queryParams),
+                        confirmText: '好的'
                     })
+                    const {tenantId, pageUrl} = this.data.queryParams
+                    if(tenantId && pageUrl) {
+                        this.handleSystemLogin(phoneNumber, this.data.queryParams)
+                    }else{
+                        wx.navigateTo({
+                            url: '/pages/selectAccountbook/index'
+                        })
+                    }
                 }
             },
         })
@@ -56,5 +68,43 @@ Page({
     },
     agree() {
         validFn('请阅读并同意用户需知与隐私政策')
-    }
+    },
+    handleSystemLogin(phoneNumber, queryParams) {
+        // 每次登录清理一下cookie, 要不然会串系统
+        this.clearCookie()
+        addLoading()
+        request({
+            url: app.globalData.url + 'loginController.do?checkuserByPhoneNumber',
+            method: 'POST',
+            data: {
+                phoneNumber,
+                tenantCode:queryParams?.tenantId
+            },
+            success: res => {
+                wx.showModal({
+                    content: JSON.stringify(res.data),
+                    confirmText: '好的',
+                })
+                this.setCookie(res)
+                if(res.data.success) {
+                    // 去home页
+                    wx.redirectTo({
+                        url: queryParams?.pageUrl + qsString(queryParams)
+                    })
+                }else{
+                    validFn(res.data.msg)
+                }
+            }
+        })
+    },
+    clearCookie() {
+        wx.setStorageSync('sessionId', '')
+    },
+    setCookie(res) {
+        let cookie = res.header['Set-Cookie']
+        cookie = cookie.replace(/JSESSIONID/, ';JSESSIONID')
+            .replace(/,db=/, ';db=')
+        console.log(cookie, 'coookie')
+        wx.setStorageSync('sessionId', cookie)
+    },
 });
