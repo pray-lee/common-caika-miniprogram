@@ -45,10 +45,6 @@ Page({
                         phoneNumber,
                         tenantList
                     })
-                    wx.showModal({
-                        content: JSON.stringify(this.data.queryParams),
-                        confirmText: '好的'
-                    })
                     const {tenantId, pageUrl} = this.data.queryParams
                     if(tenantId && pageUrl) {
                         this.handleSystemLogin(phoneNumber, this.data.queryParams)
@@ -57,6 +53,11 @@ Page({
                             url: '/pages/selectAccountbook/index'
                         })
                     }
+                }else{
+                    wx.showModal({
+                        content: res.data.msg,
+                        confirmText: '好的'
+                    })
                 }
             },
         })
@@ -81,10 +82,6 @@ Page({
                 tenantCode:queryParams?.tenantId
             },
             success: res => {
-                wx.showModal({
-                    content: JSON.stringify(res.data),
-                    confirmText: '好的',
-                })
                 this.setCookie(res)
                 if(res.data.success) {
                     // 去home页

@@ -144,6 +144,7 @@ Page({
         wx.setStorageSync('tenantList', tenantList)
     },
     onLoad(query) {
+        query.pageUrl = `/viewBill/pages/viewJiekuan/index`
         // 增加申请人
         this.setData({
             realName: app.globalData.realName

@@ -30,6 +30,7 @@ Page({
                     getErrorMessage(res.data)
                 } else {
                     // console.log(res, 'res')
+                    res.data.success = false
                     if (res.data.success) {
                         const tenantList = res.data.result?.tenantList || []
                         const phoneNumber = res.data.result?.phoneNumber || ''

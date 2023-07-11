@@ -199,17 +199,6 @@ Page({
                 result.billDetailList.forEach(item => {
                     item.borrowAmount = formatNumber(Number(item.borrowAmount).toFixed(2))
                 })
-                if(res.data.success) {
-                    this.setData({
-                        result
-                    })
-                }else{
-                    wx.showModal({
-                        content:'数据请求失败',
-                        confirmText: '好的',
-                        showCancel: false,
-                    })
-                }
                 this.getProcessInstance(result.id, result.accountbookId)
             },
             fail: res => {
@@ -540,6 +529,9 @@ Page({
                             item.originBorrowAmount = formatNumber(Number(item.originBorrowAmount).toFixed(2))
                         })
                     }
+                    this.setData({
+                        result
+                    })
                 }
             },
         })
