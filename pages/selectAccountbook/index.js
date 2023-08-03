@@ -39,6 +39,7 @@ Page({
                 this.setCookie(res)
                 if(res.data.success) {
                     // 去home页
+                    wx.setStorageSync('tenantId', tenantCode)
                     wx.navigateTo({
                         url: "/pages/home/index"
                     })

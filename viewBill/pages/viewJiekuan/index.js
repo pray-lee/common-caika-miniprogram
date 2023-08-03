@@ -126,6 +126,8 @@ Page({
                             phoneNumber,
                             tenantList
                         })
+                        query.phoneNumber = query?.phoneNumber || phoneNumber
+                        query.tenantId = query?.tenantId || wx.getStorageSync('tenantId')
                         this.handleSystemLogin(query)
                     } else {
                         wx.redirectTo({
