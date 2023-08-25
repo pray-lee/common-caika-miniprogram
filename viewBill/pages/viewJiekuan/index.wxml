@@ -58,7 +58,7 @@
             <view class="title">单据信息</view>
             <view class="block-wrapper">
                 <view class="form-row">
-                    <view class="form-row-label"><text class="require">*</text>事由</view>
+                    <view class="form-row-label">事由</view>
                     <view class="form-row-content" style="height:auto;min-height:44rpx">
                         <view class="mock-input" wx:if="{{result.remark}}" style="height:auto;min-height:44rpx">{{result.remark}}</view>
                         <view class="mock-input" wx:else>无</view>

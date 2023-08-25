@@ -7,7 +7,7 @@
     overflow:hidden
 }
 .form-scroll-wrapper{
-    height: calc(100vh)
+    height: calc(100vh - 100rpx)
 }
 .form-scroll-wrapper.iphoneX{
     height: calc(100vh - 68rpx)

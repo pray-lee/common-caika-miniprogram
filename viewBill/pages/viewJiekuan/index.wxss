@@ -7,7 +7,7 @@
     overflow:hidden
 }
 .form-scroll-wrapper{
-    height: calc(100vh)
+    height: calc(100vh - 100rpx)
 }
 .form-scroll-wrapper.iphoneX{
     height: calc(100vh - 68rpx)
@@ -39,6 +39,9 @@
     left:0;
     z-index:999;
     width: 100%;
+}
+.btn-area.iphoneX{
+    padding-bottom: 68rpx;
 }
 .btn-area button{
     width: 100%;
